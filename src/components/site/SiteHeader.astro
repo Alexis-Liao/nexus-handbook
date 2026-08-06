@@ -22,7 +22,7 @@ function isActive(href: string) {
 }
 ---
 
-<header class:list={['site-header', splash && 'site-header--splash']} transition:persist="site-header">
+<header class:list={['site-header', splash && 'site-header--splash']}>
 	<div class="site-page-inner site-header__inner">
 		<a href={localizePath('/', locale)} class="site-brand">
 			<img src={LOGO_PATH} alt={getLogoAlt(locale)} class="site-brand__logo" />

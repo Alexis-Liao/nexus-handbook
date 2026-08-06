@@ -9,7 +9,6 @@ import { getUi } from '../i18n/ui';
 import { LOGO_PATH, SITE_URL } from '../consts';
 import {
 	getAlternateUrls,
-	localizePath,
 	type Locale,
 } from '../i18n/utils';
 import { localeHtmlLang, localeOgLocale } from '../i18n/locales';
@@ -42,8 +41,8 @@ const canonicalURL = new URL(currentPath, SITE_URL);
 const ogImage = new URL(LOGO_PATH, SITE_URL);
 const alternates = getAlternateUrls(currentPath);
 const navLabels = {
-	open: t.nav.openMenu,
-	close: t.nav.closeMenu,
+	zh: { open: getUi('zh').nav.openMenu, close: getUi('zh').nav.closeMenu },
+	en: { open: getUi('en').nav.openMenu, close: getUi('en').nav.closeMenu },
 };
 ---
 
@@ -87,16 +86,29 @@ const navLabels = {
 		</div>
 		<MotionInit />
 		<CursorDot />
-		<script define:vars={{ navLabels, locale, homePath: localizePath('/', locale) }}>
+		<script define:vars={{ navLabels }}>
 			const header = document.querySelector('.site-header');
 			const toggle = document.querySelector('.site-nav-toggle');
 			const nav = document.querySelector('.site-nav');
 			const backdrop = document.querySelector('.site-nav-backdrop');
 
+			function getLocaleFromPath(path) {
+				return path === '/en' || path.startsWith('/en/') ? 'en' : 'zh';
+			}
+
+			function homePathFor(locale) {
+				return locale === 'en' ? '/en/' : '/';
+			}
+
+			function getNavLabels() {
+				return navLabels[getLocaleFromPath(window.location.pathname)];
+			}
+
 			function setNavOpen(open) {
+				const labels = getNavLabels();
 				header?.setAttribute('data-open', open ? 'true' : 'false');
 				toggle?.setAttribute('aria-expanded', open ? 'true' : 'false');
-				toggle?.setAttribute('aria-label', open ? navLabels.close : navLabels.open);
+				toggle?.setAttribute('aria-label', open ? labels.close : labels.open);
 				backdrop?.setAttribute('aria-hidden', open ? 'false' : 'true');
 				document.body.style.overflow = open ? 'hidden' : '';
 			}
@@ -128,6 +140,7 @@ const navLabels = {
 
 			function syncNavState() {
 				const path = window.location.pathname;
+				const homePath = homePathFor(getLocaleFromPath(path));
 				document.querySelectorAll('.site-nav__link').forEach((link) => {
 					const href = link.getAttribute('href');
 					if (!href) return;
@@ -141,14 +154,22 @@ const navLabels = {
 			}
 
 			function syncSplashState() {
-				const isHome = window.location.pathname === homePath || window.location.pathname === `${homePath}index.html`;
+				const path = window.location.pathname;
+				const isHome =
+					path === '/' || path === '/en/' || path === '/en' || path === '/index.html';
 				const shell = document.querySelector('.site-shell');
 				if (shell) shell.toggleAttribute('data-splash', isHome);
 				if (header) header.classList.toggle('site-header--splash', isHome);
 			}
 
+			function syncDocumentLocale() {
+				const locale = getLocaleFromPath(window.location.pathname);
+				document.documentElement.lang = locale === 'en' ? 'en' : 'zh-CN';
+			}
+
 			function syncPageState() {
 				setNavOpen(false);
+				syncDocumentLocale();
 				syncSplashState();
 				syncNavState();
 			}
