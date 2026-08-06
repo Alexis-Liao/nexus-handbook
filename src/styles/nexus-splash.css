@@ -46,7 +46,7 @@
 	margin: 0;
 	writing-mode: vertical-rl;
 	text-orientation: upright;
-	font-family: 'FZ Qing Ke Ben Yue Song', 'Noto Serif SC', serif;
+	font-family: var(--nexus-font-display);
 	font-size: clamp(3.25rem, 9.5vw, 6.75rem);
 	font-weight: normal;
 	line-height: 1.05;
@@ -233,7 +233,7 @@
 	display: flex;
 	flex-direction: column;
 	gap: 0.08em;
-	font-family: 'FZ Qing Ke Ben Yue Song', 'Noto Serif SC', serif;
+	font-family: var(--nexus-font-display);
 	font-size: clamp(2.75rem, 8vw, 5rem);
 	font-weight: normal;
 	line-height: 1.18;
@@ -272,7 +272,7 @@
 	margin: 1.5rem 0 0;
 	padding-left: 1rem;
 	border-left: 3px solid var(--hero-blue);
-	font-family: 'FZ Qing Ke Ben Yue Song', 'Noto Serif SC', serif;
+	font-family: var(--nexus-font-display);
 	font-size: clamp(1.05rem, 2vw, 1.25rem);
 	font-style: normal;
 	color: var(--hero-ink-soft);

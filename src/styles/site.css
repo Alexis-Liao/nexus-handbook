@@ -38,6 +38,10 @@
 	--btn-radius: 0.5rem;
 }
 
+html[lang='en'] {
+	--nexus-font-display: 'Times New Roman', Times, serif;
+}
+
 *,
 *::before,
 *::after {
