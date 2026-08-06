@@ -27,7 +27,6 @@ export const socialLinks = [
 		id: 'xiaohongshu',
 		label: '小红书',
 		name: 'Nexus1313257414',
-		href: 'https://www.xiaohongshu.com/search_result?keyword=Nexus1313257414',
 	},
 ] as const;
 
