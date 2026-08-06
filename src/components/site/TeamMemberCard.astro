@@ -1,0 +1,26 @@
+---
+interface Props {
+	name: string;
+	role?: string;
+	school?: string;
+	bio?: string;
+	photo?: string;
+	lead?: boolean;
+}
+
+const { name, role, school, bio, photo, lead = false } = Astro.props;
+---
+
+<article class:list={['site-card', 'team-card', lead && 'team-card--lead']}>
+	{
+		photo && (
+			<div class="team-card__photo-wrap">
+				<img src={photo} alt={name} class="team-card__photo" loading="lazy" />
+			</div>
+		)
+	}
+	<h3 class="team-card__name">{name}</h3>
+	{role && <p class="team-card__role">{role}</p>}
+	{school && <p class="team-card__school">{school}</p>}
+	{bio && <p class="team-card__bio">{bio}</p>}
+</article>

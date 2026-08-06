@@ -1,0 +1,29 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "framework": "astro",
+  "redirects": [
+    { "source": "/seminar", "destination": "/programs/", "permanent": true },
+    { "source": "/seminar/", "destination": "/programs/", "permanent": true },
+    { "source": "/start/", "destination": "/handbook/start/", "permanent": true },
+    { "source": "/dedication", "destination": "/handbook/dedication/", "permanent": true },
+    { "source": "/dedication/", "destination": "/handbook/dedication/", "permanent": true },
+    { "source": "/thanks", "destination": "/handbook/thanks/", "permanent": true },
+    { "source": "/thanks/", "destination": "/handbook/thanks/", "permanent": true },
+    { "source": "/01-about", "destination": "/handbook/01-about/", "permanent": true },
+    { "source": "/01-about/", "destination": "/handbook/01-about/", "permanent": true },
+    { "source": "/01-about/:path*", "destination": "/handbook/01-about/:path*", "permanent": true },
+    { "source": "/02-curriculum", "destination": "/handbook/02-curriculum/", "permanent": true },
+    { "source": "/02-curriculum/", "destination": "/handbook/02-curriculum/", "permanent": true },
+    { "source": "/02-curriculum/:path*", "destination": "/handbook/02-curriculum/:path*", "permanent": true },
+    { "source": "/03-seminar", "destination": "/handbook/03-seminar/", "permanent": true },
+    { "source": "/03-seminar/", "destination": "/handbook/03-seminar/", "permanent": true },
+    { "source": "/03-seminar/:path*", "destination": "/handbook/03-seminar/:path*", "permanent": true },
+    { "source": "/04-workshop", "destination": "/handbook/04-workshop/", "permanent": true },
+    { "source": "/04-workshop/", "destination": "/handbook/04-workshop/", "permanent": true },
+    { "source": "/04-workshop/:path*", "destination": "/handbook/04-workshop/:path*", "permanent": true },
+    { "source": "/05-camp", "destination": "/handbook/05-camp/", "permanent": true },
+    { "source": "/05-camp/", "destination": "/handbook/05-camp/", "permanent": true },
+    { "source": "/05-camp/:path*", "destination": "/handbook/05-camp/:path*", "permanent": true }
+  ]
+}

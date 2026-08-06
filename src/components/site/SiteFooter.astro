@@ -1,0 +1,48 @@
+---
+import { nav, site } from '../../data/site';
+import { LOGO_PATH, LOGO_ALT } from '../../consts';
+---
+
+<footer class="site-footer" transition:persist="site-footer">
+	<div class="site-page-inner site-footer__inner">
+		<div class="site-footer__brand">
+			<img src={LOGO_PATH} alt={LOGO_ALT} class="site-footer__logo" />
+			<p class="site-footer__tagline">{site.tagline}</p>
+		</div>
+
+		<div class="site-footer__links">
+			{nav.map((item) => <a href={item.href}>{item.label}</a>)}
+		</div>
+
+		<p class="site-footer__meta">
+			© {new Date().getFullYear()} 知合 Nexus · 非营利性创新教育项目 · 创立于 {site.yearFounded}
+		</p>
+	</div>
+</footer>
+
+<style>
+	.site-footer__brand {
+		display: flex;
+		align-items: center;
+		gap: clamp(1rem, 3vw, 1.75rem);
+		flex-wrap: wrap;
+	}
+
+	.site-footer__logo {
+		height: 4.5rem;
+		width: auto;
+		object-fit: contain;
+		flex-shrink: 0;
+	}
+
+	@media (max-width: 720px) {
+		.site-footer__logo {
+			height: 3rem;
+		}
+
+		.site-footer__tagline {
+			font-size: clamp(0.92rem, 3.5vw, 1.05rem);
+			letter-spacing: 0.08em;
+		}
+	}
+</style>

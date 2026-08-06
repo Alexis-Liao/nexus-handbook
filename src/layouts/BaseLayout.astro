@@ -1,0 +1,114 @@
+---
+import SiteHeader from '../components/site/SiteHeader.astro';
+import SiteFooter from '../components/site/SiteFooter.astro';
+import { ClientRouter } from 'astro:transitions';
+import { site } from '../data/site';
+import { LOGO_PATH } from '../consts';
+import '../styles/site.css';
+
+interface Props {
+	title: string;
+	description?: string;
+	currentPath?: string;
+	splash?: boolean;
+}
+
+const { title, description = site.description, currentPath = Astro.url.pathname, splash = false } =
+	Astro.props;
+const pageTitle = title === site.name ? title : `${title} · ${site.name}`;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+		<meta name="description" content={description} />
+		<link rel="icon" type="image/png" href={LOGO_PATH} />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Serif+SC:wght@500;700&display=swap"
+			rel="stylesheet"
+		/>
+		<title>{pageTitle}</title>
+		<ClientRouter />
+	</head>
+	<body>
+		<div class="site-shell" data-splash={splash || undefined}>
+			<SiteHeader currentPath={currentPath} splash={splash} />
+			<main class="site-main" transition:animate="fade">
+				<slot />
+			</main>
+			<SiteFooter />
+		</div>
+		<script>
+			const header = document.querySelector('.site-header');
+			const toggle = document.querySelector('.site-nav-toggle');
+			const nav = document.querySelector('.site-nav');
+			const backdrop = document.querySelector('.site-nav-backdrop');
+
+			function setNavOpen(open) {
+				header?.setAttribute('data-open', open ? 'true' : 'false');
+				toggle?.setAttribute('aria-expanded', open ? 'true' : 'false');
+				toggle?.setAttribute('aria-label', open ? '关闭导航菜单' : '打开导航菜单');
+				backdrop?.setAttribute('aria-hidden', open ? 'false' : 'true');
+				document.body.style.overflow = open ? 'hidden' : '';
+			}
+
+			toggle?.addEventListener('click', () => {
+				const open = header?.getAttribute('data-open') !== 'true';
+				setNavOpen(open);
+			});
+
+			backdrop?.addEventListener('click', () => setNavOpen(false));
+
+			nav?.querySelectorAll('.site-nav__link').forEach((link) => {
+				link.addEventListener('click', () => setNavOpen(false));
+			});
+
+			document.addEventListener('click', (event) => {
+				if (
+					header?.getAttribute('data-open') === 'true' &&
+					event.target instanceof Node &&
+					!header.contains(event.target)
+				) {
+					setNavOpen(false);
+				}
+			});
+
+			document.addEventListener('keydown', (event) => {
+				if (event.key === 'Escape') setNavOpen(false);
+			});
+
+			function syncNavState() {
+				const path = window.location.pathname;
+				document.querySelectorAll('.site-nav__link').forEach((link) => {
+					const href = link.getAttribute('href');
+					if (!href) return;
+					const active =
+						href === '/' ? path === '/' || path === '/index.html' : path.startsWith(href);
+					if (active) link.setAttribute('aria-current', 'page');
+					else link.removeAttribute('aria-current');
+				});
+			}
+
+			function syncSplashState() {
+				const isHome =
+					window.location.pathname === '/' || window.location.pathname === '/index.html';
+				const shell = document.querySelector('.site-shell');
+				if (shell) shell.toggleAttribute('data-splash', isHome);
+				if (header) header.classList.toggle('site-header--splash', isHome);
+			}
+
+			function syncPageState() {
+				setNavOpen(false);
+				syncSplashState();
+				syncNavState();
+			}
+
+			syncPageState();
+			document.addEventListener('astro:page-load', syncPageState);
+		</script>
+	</body>
+</html>

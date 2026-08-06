@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/site/PageHero.astro';
+import SectionHead from '../components/site/SectionHead.astro';
+import TeamMemberCard from '../components/site/TeamMemberCard.astro';
+import { leadership, teamGroups } from '../data/site';
+---
+
+<BaseLayout
+	title="团队"
+	description="认识知合 NEXUS 理事会与各工作组志愿者团队。"
+	currentPath="/team/"
+>
+	<PageHero eyebrow="Team" title="知合团队" lede="以志愿形式参与，各工作组全程支持营地筹备与落地。" />
+
+	<div class="site-docs">
+		<section class="site-section">
+			<div class="site-page-inner">
+				<SectionHead eyebrow="Leadership" title="理事会" />
+				<div class="site-card-grid site-card-grid--cols-2">
+					{
+						leadership.map((person) => (
+							<TeamMemberCard
+								name={person.name}
+								role={person.role}
+								school={'school' in person ? person.school : undefined}
+								bio={person.bio}
+								photo={'photo' in person ? person.photo : undefined}
+								lead
+							/>
+						))
+					}
+				</div>
+			</div>
+		</section>
+
+		<section class="site-section site-section--paper">
+			<div class="site-page-inner">
+				{
+					teamGroups.map((group) => (
+						<div class="team-group">
+							<h2 class="team-group__title">{group.name}</h2>
+							<div class="site-card-grid site-card-grid--cols-3">
+								{group.members.map((member) => (
+									<TeamMemberCard
+										name={member.name}
+										school={'school' in member ? member.school : undefined}
+										bio={'bio' in member ? member.bio : undefined}
+										photo={'photo' in member ? member.photo : undefined}
+									/>
+								))}
+							</div>
+						</div>
+					))
+				}
+			</div>
+		</section>
+	</div>
+</BaseLayout>

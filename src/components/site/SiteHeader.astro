@@ -1,0 +1,56 @@
+---
+import { nav } from '../../data/site';
+import { LOGO_PATH, LOGO_ALT } from '../../consts';
+
+interface Props {
+	currentPath: string;
+	splash?: boolean;
+}
+
+const { currentPath, splash = false } = Astro.props;
+
+function isActive(href: string) {
+	if (href === '/') return currentPath === '/';
+	return currentPath.startsWith(href);
+}
+---
+
+<header class:list={['site-header', splash && 'site-header--splash']} transition:persist="site-header">
+	<div class="site-page-inner site-header__inner">
+		<a href="/" class="site-brand">
+			<img src={LOGO_PATH} alt={LOGO_ALT} class="site-brand__logo" />
+		</a>
+
+		<button
+			class="site-nav-toggle"
+			type="button"
+			aria-label="打开导航菜单"
+			aria-expanded="false"
+			aria-controls="site-nav"
+		>
+			<span class="site-nav-toggle__bars" aria-hidden="true">
+				<span class="site-nav-toggle__bar"></span>
+				<span class="site-nav-toggle__bar"></span>
+				<span class="site-nav-toggle__bar"></span>
+			</span>
+		</button>
+
+		<nav class="site-nav" id="site-nav" aria-label="主导航">
+			{
+				nav.map((item) => (
+					<a
+						href={item.href}
+						class:list={[
+							'site-nav__link',
+							item.href === '/handbook/' && 'site-nav__link--cta',
+						]}
+						aria-current={isActive(item.href) ? 'page' : undefined}
+					>
+						{item.label}
+					</a>
+				))
+			}
+		</nav>
+	</div>
+	<div class="site-nav-backdrop" aria-hidden="true"></div>
+</header>

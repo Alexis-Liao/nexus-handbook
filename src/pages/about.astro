@@ -1,0 +1,76 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/site/PageHero.astro';
+import SectionHead from '../components/site/SectionHead.astro';
+import { site, culturalPlain, campLocations, testimonials } from '../data/site';
+---
+
+<BaseLayout
+	title="关于"
+	description="了解知合 Nexus 的使命、愿景与文化平原定位。"
+	currentPath="/about/"
+>
+	<PageHero
+		eyebrow="About Nexus"
+		title="构建文化平原的青年社群"
+		lede="知合 NEXUS 致力于在中国的文化平原地区，为青年人搭建思辨、讨论、共学的社群。"
+	/>
+
+	<div class="site-docs">
+		<section class="site-section">
+			<div class="site-page-inner">
+				<div class="site-card-grid site-card-grid--cols-2">
+					<article class="site-card">
+						<h2 class="site-card__title">使命</h2>
+						<p class="site-card__text">{site.description}</p>
+					</article>
+					<article class="site-card">
+						<h2 class="site-card__title">愿景</h2>
+						<p class="site-card__text">{site.vision}</p>
+					</article>
+				</div>
+			</div>
+		</section>
+
+		<section class="site-section site-section--paper">
+			<div class="site-page-inner">
+				<div class="site-section__lead">
+					<p class="site-section__eyebrow">Cultural Plain</p>
+					<h2 class="site-section__title">{culturalPlain.title}</h2>
+				</div>
+				<div class="prose">
+					<p>{culturalPlain.definition}</p>
+					<p>{culturalPlain.context}</p>
+					<p>{culturalPlain.scope}</p>
+				</div>
+			</div>
+		</section>
+
+		<section class="site-section">
+			<div class="site-page-inner">
+				<SectionHead eyebrow="Locations" title="知合营落点" intro="2024 年以来，知合在以下城市开展读书营。" />
+				<div class="location-tags">
+					{campLocations.map((city) => <span class="location-tag">{city}</span>)}
+				</div>
+			</div>
+		</section>
+
+		<section class="site-section site-section--paper">
+			<div class="site-page-inner">
+				<SectionHead eyebrow="Feedback" title="共读人的声音" />
+				<div class="quote-grid">
+					{
+						testimonials.map((item) => (
+							<blockquote class="quote-card">
+								<p class="quote-card__text">「{item.quote}」</p>
+								<footer class="quote-card__author">
+									—— {item.author}（{item.role}）
+								</footer>
+							</blockquote>
+						))
+					}
+				</div>
+			</div>
+		</section>
+	</div>
+</BaseLayout>

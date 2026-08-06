@@ -1,0 +1,21 @@
+---
+const { siteTitleHref } = Astro.locals.starlightRoute;
+import { LOGO_PATH, LOGO_ALT } from '../consts';
+---
+
+<a href="/handbook/" class="site-title sl-flex">
+	<img src={LOGO_PATH} alt={LOGO_ALT} width="240" height="64" class="site-title-mark" />
+</a>
+
+<style>
+	.site-title {
+		align-items: center;
+		text-decoration: none;
+	}
+
+	.site-title-mark {
+		height: 4rem;
+		width: auto;
+		object-fit: contain;
+	}
+</style>

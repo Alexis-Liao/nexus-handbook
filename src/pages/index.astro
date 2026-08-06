@@ -1,0 +1,154 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HomeHeroRings from '../components/HomeHeroRings.astro';
+import {
+	site,
+	programs,
+	culturalPlain,
+	campLocations,
+	testimonials,
+	advantages,
+	contact,
+} from '../data/site';
+---
+
+<BaseLayout title={site.name} description={site.description} splash>
+	<section class="nexus-hero nexus-hero--site" aria-label="知合 Nexus">
+		<HomeHeroRings />
+
+		<div class="nexus-hero__inner">
+			<div class="nexus-hero__content">
+				<h1 class="nexus-hero__title">
+					<span class="nexus-hero__title-line">构建文化平原</span>
+					<span class="nexus-hero__title-line">的青年社群</span>
+				</h1>
+				<p class="nexus-hero__tagline">{site.motto}</p>
+
+				<div class="nexus-hero__mission-grid">
+					<div class="nexus-hero__mission-item">
+						<p class="nexus-hero__mission-label">使命</p>
+						<p class="nexus-hero__mission-text">{site.description}</p>
+					</div>
+					<div class="nexus-hero__mission-item">
+						<p class="nexus-hero__mission-label">愿景</p>
+						<p class="nexus-hero__mission-text">{site.vision}</p>
+					</div>
+				</div>
+
+				<div class="nexus-hero__actions">
+					<a class="nexus-hero__cta" href="/programs/">了解读书营</a>
+					<a class="nexus-hero__cta nexus-hero__cta--ghost" href="/philosophy/">理念与方法</a>
+					<a class="nexus-hero__cta nexus-hero__cta--ghost" href="/handbook/">领读人手册</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<div class="site-docs">
+		<section class="site-section">
+			<div class="site-page-inner">
+				<div class="site-section__lead">
+					<p class="site-section__eyebrow">Programs</p>
+					<h2 class="site-section__title">知合主要项目</h2>
+					<p class="site-section__intro">
+						以圆桌·博雅为方法，在暑期、冬季与线上持续展开共学实践。
+					</p>
+				</div>
+
+				<div class="site-card-grid site-card-grid--cols-3">
+					{
+						programs.map((item) => (
+							<article class="site-card">
+								<p class="site-card__tag">{item.tag}</p>
+								<h3 class="site-card__title">{item.title}</h3>
+								<p class="site-card__text">{item.description}</p>
+							</article>
+						))
+					}
+				</div>
+				<div class="nexus-hero__actions site-section__actions">
+					<a class="nexus-hero__cta" href="/programs/">项目详情与时间线</a>
+				</div>
+			</div>
+		</section>
+
+		<section class="site-section site-section--paper">
+			<div class="site-page-inner">
+				<div class="site-section__lead">
+					<p class="site-section__eyebrow">Cultural Plain</p>
+					<h2 class="site-section__title">落点：文化平原</h2>
+					<p class="site-section__intro">{culturalPlain.definition}</p>
+				</div>
+				<div class="location-tags">
+					{campLocations.map((city) => <span class="location-tag">{city}</span>)}
+				</div>
+				<p class="location-note">2024 年以来的知合营地点</p>
+			</div>
+		</section>
+
+		<section class="site-section">
+			<div class="site-page-inner">
+				<div class="site-section__lead">
+					<p class="site-section__eyebrow">Voices</p>
+					<h2 class="site-section__title">共读人反馈</h2>
+					<p class="site-section__intro">
+						每年，我们读书营的反馈都超出了预期，这也印证了我们的定位是准确的。
+					</p>
+				</div>
+				<div class="quote-grid">
+					{
+						testimonials.map((item) => (
+							<blockquote class="quote-card">
+								<p class="quote-card__text">「{item.quote}」</p>
+								<footer class="quote-card__author">
+									—— {item.author}（{item.role}）
+								</footer>
+							</blockquote>
+						))
+					}
+				</div>
+			</div>
+		</section>
+
+		<section class="site-section site-section--paper">
+			<div class="site-page-inner">
+				<div class="site-section__lead">
+					<p class="site-section__eyebrow">Strength</p>
+					<h2 class="site-section__title">独特优势</h2>
+				</div>
+				<div class="site-card-grid site-card-grid--cols-3">
+					{
+						advantages.map((item) => (
+							<article class="site-card">
+								<h3 class="site-card__title">{item.title}</h3>
+								<p class="site-card__text">{item.text}</p>
+							</article>
+						))
+					}
+				</div>
+				<div class="nexus-hero__actions site-section__actions">
+					<a class="nexus-hero__cta" href="/join/">参与我们</a>
+				</div>
+			</div>
+		</section>
+
+		<section class="site-closing">
+			<p class="site-closing__text">共赴平原</p>
+			<div class="site-closing__contact">
+				<div class="site-closing__item">
+					<p class="site-closing__label">咨询邮箱</p>
+					<a class="site-closing__link" href={`mailto:${contact.email}`}>{contact.email}</a>
+				</div>
+				<div class="site-closing__item">
+					<p class="site-closing__label">近期活动</p>
+					<a
+						class="site-closing__link"
+						href={contact.wechatArticle.href}
+						target="_blank"
+						rel="noopener noreferrer">{contact.wechatArticle.label}</a
+					>
+				</div>
+			</div>
+		</section>
+	</div>
+</BaseLayout>

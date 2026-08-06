@@ -1,0 +1,787 @@
+/* 知合 Splash Hero — 官网与手册共用 */
+
+.nexus-hero {
+	--hero-blue: #184088;
+	--hero-blue-dark: #0f3068;
+	--hero-blue-pale: #d0d8e8;
+	--hero-blue-mist: #e8edf5;
+	--hero-ink-soft: #4a5568;
+
+	position: relative;
+	isolation: isolate;
+	min-height: 100svh;
+	overflow: hidden;
+	color: var(--hero-blue);
+	background: #ffffff;
+}
+
+.nexus-hero--starlight {
+	margin: calc(var(--sl-nav-height, 0px) * -1) calc(50% - 50vw) 0;
+	width: 100vw;
+	max-width: 100vw;
+	overflow-x: clip;
+}
+
+.nexus-hero--site {
+	min-height: 100svh;
+	background: #f8f9fb;
+}
+
+.nexus-hero--site .nexus-hero__canvas--rings {
+	z-index: 1;
+}
+
+.nexus-hero--site .nexus-hero__rings {
+	opacity: 0.62;
+	animation:
+		nexus-rings-enter 1.4s cubic-bezier(0.22, 1, 0.36, 1) both,
+		nexus-rings-float 9s ease-in-out infinite;
+}
+
+.nexus-hero--site .nexus-hero__ring--1 {
+	stroke-dasharray: 12 18;
+	animation:
+		nexus-ring-spin 52s linear infinite,
+		nexus-ring-dash 14s linear infinite,
+		nexus-ring-breathe 6s ease-in-out infinite;
+}
+
+.nexus-hero--site .nexus-hero__ring--2 {
+	animation:
+		nexus-ring-spin 38s linear infinite reverse,
+		nexus-ring-breathe 5s ease-in-out 0.8s infinite;
+}
+
+.nexus-hero--site .nexus-hero__ring--3 {
+	animation:
+		nexus-ring-spin 24s linear infinite,
+		nexus-ring-breathe 4.5s ease-in-out 1.2s infinite;
+}
+
+.nexus-hero--site .nexus-hero__ring--4 {
+	animation:
+		nexus-ring-spin 18s linear infinite reverse,
+		nexus-ring-opacity-pulse 5s ease-in-out infinite;
+}
+
+.nexus-hero--site .nexus-hero__dots {
+	transform-origin: 300px 300px;
+	animation: nexus-dot-orbit 80s linear infinite;
+}
+
+.nexus-hero--site .nexus-hero__inner {
+	grid-template-rows: 1fr;
+	align-content: center;
+	padding-block: clamp(2rem, 6vh, 4rem);
+}
+
+.nexus-hero--site .nexus-hero__content {
+	width: 100%;
+	max-width: 48rem;
+}
+
+.nexus-hero__canvas {
+	position: absolute;
+	inset: 0;
+	z-index: 0;
+	pointer-events: none;
+	overflow: hidden;
+}
+
+.nexus-hero__wash {
+	position: absolute;
+	inset: 0;
+	background:
+		radial-gradient(ellipse 55% 45% at 92% 8%, rgba(24, 64, 136, 0.06), transparent 55%),
+		radial-gradient(ellipse 40% 35% at 8% 92%, rgba(24, 64, 136, 0.04), transparent 50%),
+		linear-gradient(180deg, #ffffff 0%, #f8f9fb 100%);
+	animation: nexus-wash-breathe 12s ease-in-out infinite alternate;
+}
+
+.nexus-hero__rings {
+	position: absolute;
+	right: -8%;
+	top: 50%;
+	transform: translateY(-50%);
+	width: min(52vw, 520px);
+	height: auto;
+	opacity: 0.55;
+	animation: nexus-rings-enter 1.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.nexus-hero__ring {
+	fill: none;
+	stroke: var(--hero-blue);
+	transform-origin: 300px 300px;
+}
+
+.nexus-hero__ring--1 {
+	stroke-width: 1.5;
+	stroke-opacity: 0.18;
+	animation: nexus-ring-spin 48s linear infinite;
+}
+
+.nexus-hero__ring--2 {
+	stroke-width: 1.5;
+	stroke-opacity: 0.24;
+	animation: nexus-ring-spin 36s linear infinite reverse;
+}
+
+.nexus-hero__ring--3 {
+	stroke-width: 2;
+	stroke-opacity: 0.32;
+	animation: nexus-ring-spin 28s linear infinite;
+}
+
+.nexus-hero__ring--4 {
+	stroke-width: 2.5;
+	stroke-opacity: 0.45;
+	fill: rgba(24, 64, 136, 0.06);
+}
+
+.nexus-hero__dot {
+	fill: var(--hero-blue);
+	fill-opacity: 0.35;
+	animation: nexus-dot-pulse 3s ease-in-out infinite;
+}
+
+.nexus-hero__line {
+	position: absolute;
+	height: 1px;
+	background: linear-gradient(90deg, transparent, var(--hero-blue-pale), transparent);
+	opacity: 0.7;
+}
+
+.nexus-hero__line--a {
+	top: 22%;
+	left: 5%;
+	width: min(40vw, 320px);
+	transform: rotate(-4deg);
+	animation: nexus-line-slide 1.2s 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.nexus-hero__line--b {
+	bottom: 28%;
+	left: 8%;
+	width: min(28vw, 200px);
+	transform: rotate(-4deg);
+	animation: nexus-line-slide 1.2s 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.nexus-hero__inner,
+.site-page-inner {
+	position: relative;
+	max-width: 80rem;
+	margin-inline: auto;
+	padding-inline: clamp(1.75rem, 5vw, 3.5rem);
+}
+
+.nexus-hero__inner {
+	z-index: 1;
+	display: grid;
+	grid-template-rows: auto 1fr auto;
+	min-height: 100svh;
+}
+
+.nexus-hero__top {
+	display: flex;
+	justify-content: flex-end;
+	padding-top: clamp(1.25rem, 3vh, 2rem);
+	animation: nexus-fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.nexus-hero__logo-img {
+	height: clamp(4.5rem, 9vw, 6rem);
+	width: auto;
+	object-fit: contain;
+}
+
+.nexus-hero__content {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+	padding: clamp(2rem, 6vh, 4rem) 0;
+	max-width: 44rem;
+}
+
+.nexus-hero__eyebrow {
+	margin: 0 0 1.25rem;
+	font-family: 'Noto Sans SC', system-ui, sans-serif;
+	font-size: 0.72rem;
+	font-weight: 700;
+	letter-spacing: 0.22em;
+	text-transform: uppercase;
+	color: var(--hero-ink-soft);
+	animation: nexus-fade-up 0.9s 0.05s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.nexus-hero__title {
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 0.08em;
+	font-family: 'FZ Qing Ke Ben Yue Song', 'Noto Serif SC', serif;
+	font-size: clamp(2.75rem, 8vw, 5rem);
+	font-weight: normal;
+	line-height: 1.18;
+	letter-spacing: 0.06em;
+	color: var(--hero-blue);
+}
+
+.nexus-hero__title-line {
+	display: block;
+	overflow: hidden;
+}
+
+.nexus-hero__title-line:nth-child(1) {
+	animation: nexus-fade-up 0.9s 0.12s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.nexus-hero__title-line:nth-child(2) {
+	animation: nexus-fade-up 0.9s 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.nexus-hero__title-line:nth-child(3) {
+	animation: nexus-fade-up 0.9s 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.nexus-hero__org {
+	margin: 1.35rem 0 0;
+	font-family: 'Noto Sans SC', system-ui, sans-serif;
+	font-size: clamp(1.05rem, 2.2vw, 1.4rem);
+	font-weight: 700;
+	letter-spacing: 0.14em;
+	color: var(--hero-blue);
+	animation: nexus-fade-up 0.9s 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.nexus-hero__tagline {
+	margin: 1.5rem 0 0;
+	padding-left: 1rem;
+	border-left: 3px solid var(--hero-blue);
+	font-family: 'FZ Qing Ke Ben Yue Song', 'Noto Serif SC', serif;
+	font-size: clamp(1.05rem, 2vw, 1.25rem);
+	font-style: normal;
+	color: var(--hero-ink-soft);
+	letter-spacing: 0.12em;
+	animation: nexus-fade-up 0.9s 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.nexus-hero__lede {
+	margin: 1.5rem 0 0;
+	max-width: 36rem;
+	font-family: 'Noto Sans SC', system-ui, sans-serif;
+	font-size: clamp(0.98rem, 1.8vw, 1.08rem);
+	line-height: 2;
+	color: var(--hero-ink-soft);
+	animation: nexus-fade-up 0.9s 0.52s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.nexus-hero__mission-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+	gap: 1.25rem;
+	margin-top: 1.75rem;
+	max-width: 40rem;
+	animation: nexus-fade-up 0.9s 0.58s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.nexus-hero__mission-item {
+	padding: 1.15rem 1.25rem;
+	border: 1px solid var(--hero-blue-mist);
+	background: rgba(255, 255, 255, 0.88);
+}
+
+.nexus-hero__mission-label {
+	margin: 0;
+	font-size: 0.72rem;
+	font-weight: 700;
+	letter-spacing: 0.18em;
+	color: var(--hero-blue);
+}
+
+.nexus-hero__mission-text {
+	margin: 0.65rem 0 0;
+	font-size: 0.92rem;
+	line-height: 1.85;
+	color: var(--hero-ink-soft);
+}
+
+.nexus-hero__actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem;
+	margin-top: clamp(2rem, 5vh, 2.75rem);
+	animation: nexus-fade-up 0.9s 0.62s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.nexus-hero__cta {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.95rem 1.55rem;
+	background: var(--btn-bg, #e8edf5);
+	color: var(--btn-text, var(--hero-blue));
+	font-family: 'Noto Sans SC', system-ui, sans-serif;
+	font-weight: 700;
+	font-size: 0.92rem;
+	text-decoration: none;
+	border: none;
+	border-radius: var(--btn-radius, 0.5rem);
+	box-shadow: none;
+	transition:
+		transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+		background 0.25s ease,
+		box-shadow 0.25s ease;
+}
+
+.nexus-hero__cta:hover {
+	transform: translateY(-2px) scale(1.02);
+	background: var(--btn-bg-hover, #dce6f2);
+	box-shadow: 0 6px 18px rgba(24, 64, 136, 0.1);
+	color: var(--nexus-blue-dark, var(--hero-blue-dark));
+}
+
+.nexus-hero__cta--ghost {
+	background: color-mix(in srgb, var(--btn-bg, #e8edf5) 55%, transparent);
+	color: var(--btn-text, var(--hero-blue));
+	box-shadow: none;
+}
+
+.nexus-hero__cta--ghost:hover {
+	background: var(--btn-bg, #e8edf5);
+	color: var(--nexus-blue-dark, var(--hero-blue-dark));
+	box-shadow: none;
+}
+
+.nexus-hero__footer {
+	display: grid;
+	grid-template-columns: 1fr auto;
+	grid-template-rows: auto auto;
+	gap: 0.35rem 2rem;
+	align-items: end;
+	padding-bottom: clamp(2rem, 4vh, 3rem);
+	animation: nexus-fade-up 1s 0.72s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.nexus-hero__footer-meta {
+	grid-column: 1;
+	grid-row: 1;
+}
+
+.nexus-hero__edition {
+	margin: 0;
+	font-family: 'Noto Sans SC', system-ui, sans-serif;
+	font-size: 0.68rem;
+	font-weight: 700;
+	letter-spacing: 0.16em;
+	color: var(--hero-blue);
+}
+
+.nexus-hero__edition-cn {
+	margin: 0.2rem 0 0;
+	font-family: 'Noto Sans SC', system-ui, sans-serif;
+	font-size: 0.68rem;
+	letter-spacing: 0.06em;
+	color: #718096;
+}
+
+.nexus-hero__year {
+	grid-column: 2;
+	grid-row: 1 / 3;
+	width: clamp(72px, 10vw, 110px);
+	height: auto;
+	align-self: end;
+	opacity: 0.75;
+}
+
+.nexus-hero__caption {
+	grid-column: 1;
+	grid-row: 2;
+	margin: 0.5rem 0 0;
+	font-family: 'Noto Sans SC', system-ui, sans-serif;
+	font-size: 0.68rem;
+	letter-spacing: 0.3em;
+	color: #a0aec0;
+}
+
+.nexus-back-site {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.35rem;
+	padding: 0.45rem 0.85rem;
+	border: none;
+	border-radius: var(--btn-radius, 0.5rem);
+	background: var(--btn-bg, rgba(232, 237, 245, 0.92));
+	color: var(--btn-text, var(--nexus-blue, #184088));
+	font-family: 'Noto Sans SC', system-ui, sans-serif;
+	font-size: 0.82rem;
+	font-weight: 700;
+	text-decoration: none;
+	white-space: nowrap;
+	transition:
+		background 0.2s ease,
+		border-color 0.2s ease,
+		color 0.2s ease;
+}
+
+.nexus-back-site:hover {
+	background: var(--btn-bg-hover, #dce6f2);
+	color: var(--nexus-blue-dark, #0f3068);
+	transform: translateY(-1px);
+}
+
+.sidebar-content .nexus-back-sidebar {
+	display: block;
+	margin-bottom: 0.35rem;
+	padding: 0.65em 0.85em !important;
+	background: var(--nexus-blue, #184088) !important;
+	color: var(--nexus-white, #ffffff) !important;
+	font-weight: 700;
+	text-align: center;
+}
+
+.sidebar-content .nexus-back-sidebar:hover {
+	background: var(--nexus-blue-dark, #0f3068) !important;
+	color: var(--nexus-white, #ffffff) !important;
+}
+
+@keyframes nexus-fade-up {
+	from {
+		opacity: 0;
+		transform: translateY(14px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes nexus-line-slide {
+	from {
+		opacity: 0;
+		transform: rotate(-4deg) scaleX(0.3);
+		transform-origin: left center;
+	}
+	to {
+		opacity: 0.7;
+		transform: rotate(-4deg) scaleX(1);
+		transform-origin: left center;
+	}
+}
+
+@keyframes nexus-rings-enter {
+	from {
+		opacity: 0;
+		transform: translateY(-50%) scale(0.92);
+	}
+	to {
+		opacity: 0.55;
+		transform: translateY(-50%) scale(1);
+	}
+}
+
+@keyframes nexus-ring-spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes nexus-ring-opacity-pulse {
+	0%,
+	100% {
+		stroke-opacity: 0.45;
+		fill-opacity: 0.06;
+	}
+
+	50% {
+		stroke-opacity: 0.62;
+		fill-opacity: 0.11;
+	}
+}
+
+@keyframes nexus-rings-float {
+	0%,
+	100% {
+		transform: translateY(-50%) scale(1);
+	}
+
+	50% {
+		transform: translateY(calc(-50% - 10px)) scale(1.025);
+	}
+}
+
+@keyframes nexus-ring-breathe {
+	0%,
+	100% {
+		stroke-opacity: 0.16;
+	}
+
+	50% {
+		stroke-opacity: 0.34;
+	}
+}
+
+@keyframes nexus-ring-dash {
+	from {
+		stroke-dashoffset: 0;
+	}
+
+	to {
+		stroke-dashoffset: -120;
+	}
+}
+
+@keyframes nexus-dot-orbit {
+	from {
+		transform: rotate(0deg);
+	}
+
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes nexus-dot-pulse {
+	0%,
+	100% {
+		fill-opacity: 0.22;
+	}
+	50% {
+		fill-opacity: 0.55;
+	}
+}
+
+@keyframes nexus-wash-breathe {
+	from {
+		filter: brightness(1);
+	}
+	to {
+		filter: brightness(1.02);
+	}
+}
+
+@media (min-width: 900px) {
+	.nexus-hero__inner,
+	.site-page-inner {
+		padding-left: clamp(2.5rem, 7vw, 5rem);
+		padding-right: clamp(1.75rem, 5vw, 3.5rem);
+	}
+
+	.nexus-hero__inner {
+		padding-left: clamp(2.5rem, 7vw, 5rem);
+	}
+
+	.nexus-hero__content {
+		max-width: 48rem;
+	}
+}
+
+@media (max-width: 720px) {
+	.nexus-hero--site {
+		min-height: auto;
+	}
+
+	.nexus-hero--site .nexus-hero__inner {
+		min-height: auto;
+		padding-block: clamp(2.25rem, 7vh, 3.5rem);
+	}
+
+	.nexus-hero__rings {
+		right: -25%;
+		opacity: 0.28;
+		width: 70vw;
+	}
+
+	.nexus-hero__line {
+		display: none;
+	}
+
+	.nexus-hero--site .nexus-hero__content {
+		padding: clamp(1.5rem, 4vh, 2.5rem) 0;
+	}
+
+	.nexus-hero--site .nexus-hero__title {
+		font-size: clamp(2.35rem, 11vw, 3.15rem);
+		line-height: 1.24;
+	}
+
+	.nexus-hero--site .nexus-hero__tagline {
+		margin-top: 1.5rem;
+		font-size: clamp(1.05rem, 4vw, 1.2rem);
+	}
+
+	.nexus-hero--site .nexus-hero__mission-grid {
+		grid-template-columns: 1fr;
+		gap: 1rem;
+		margin-top: 2rem;
+	}
+
+	.nexus-hero--site .nexus-hero__mission-item {
+		padding: 1.1rem 1.15rem;
+	}
+
+	.nexus-hero--site .nexus-hero__mission-text {
+		font-size: 0.88rem;
+		line-height: 1.75;
+	}
+
+	.nexus-hero--site .nexus-hero__actions {
+		margin-top: 2rem;
+		gap: 0.75rem;
+	}
+
+	.nexus-hero__content {
+		padding: clamp(0.75rem, 2vh, 1.5rem) 0;
+	}
+
+	.nexus-hero__title {
+		font-size: clamp(1.85rem, 8.5vw, 2.65rem);
+		line-height: 1.22;
+	}
+
+	.nexus-hero__tagline {
+		margin-top: 1rem;
+		font-size: clamp(0.95rem, 3.5vw, 1.1rem);
+	}
+
+	.nexus-hero__mission-grid {
+		grid-template-columns: 1fr;
+		gap: 0.75rem;
+		margin-top: 1.25rem;
+	}
+
+	.nexus-hero__mission-item {
+		padding: 0.85rem 1rem;
+	}
+
+	.nexus-hero__mission-text {
+		font-size: 0.88rem;
+		line-height: 1.75;
+	}
+
+	.nexus-hero__actions {
+		margin-top: 1.35rem;
+		gap: 0.6rem;
+	}
+
+	.nexus-hero__cta {
+		padding: 0.8rem 1.15rem;
+		font-size: 0.88rem;
+	}
+
+	.nexus-hero--site .nexus-hero__rings,
+	.nexus-hero--site .nexus-hero__ring,
+	.nexus-hero--site .nexus-hero__dots {
+		animation: none !important;
+	}
+
+	.nexus-hero__footer {
+		grid-template-columns: 1fr;
+		gap: 0.5rem;
+	}
+
+	.nexus-hero__year {
+		grid-column: 1;
+		grid-row: auto;
+		justify-self: start;
+		width: 64px;
+		margin-top: 0.5rem;
+	}
+
+	.nexus-hero__caption {
+		grid-row: auto;
+	}
+}
+
+@media (max-width: 480px) {
+	.nexus-hero__actions {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	.nexus-hero__cta {
+		justify-content: center;
+	}
+
+	.nexus-hero--site .nexus-hero__canvas--rings {
+		display: none;
+	}
+
+	.nexus-hero--site .nexus-hero__title {
+		font-size: clamp(2.15rem, 11vw, 2.85rem);
+		letter-spacing: 0.05em;
+	}
+
+	.nexus-hero__title {
+		font-size: clamp(1.65rem, 8vw, 2rem);
+		letter-spacing: 0.04em;
+	}
+
+	.nexus-hero--site .nexus-hero__tagline {
+		padding-left: 0.85rem;
+		letter-spacing: 0.1em;
+	}
+
+	.nexus-hero__tagline {
+		padding-left: 0.75rem;
+		letter-spacing: 0.08em;
+	}
+}
+
+@media (max-width: 720px) {
+	.nexus-hero--starlight {
+		min-height: auto;
+	}
+
+	.nexus-hero--starlight .nexus-hero__inner {
+		min-height: auto;
+		padding-block: clamp(1.25rem, 4vh, 2rem);
+	}
+
+	.nexus-hero--starlight .nexus-hero__content {
+		padding-bottom: 1rem;
+	}
+
+	.nexus-hero__org {
+		margin-top: 1rem;
+		font-size: clamp(0.95rem, 3vw, 1.1rem);
+	}
+
+	.nexus-hero__lede {
+		font-size: 0.92rem;
+		line-height: 1.85;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.nexus-hero__wash,
+	.nexus-hero__ring,
+	.nexus-hero__dot {
+		animation: none !important;
+	}
+
+	.nexus-hero__top,
+	.nexus-hero__eyebrow,
+	.nexus-hero__title-line,
+	.nexus-hero__org,
+	.nexus-hero__tagline,
+	.nexus-hero__lede,
+	.nexus-hero__mission-grid,
+	.nexus-hero__actions,
+	.nexus-hero__footer,
+	.nexus-hero__rings,
+	.nexus-hero__line {
+		animation: none !important;
+		opacity: 1;
+		transform: none;
+	}
+
+	.nexus-hero__cta:hover {
+		transform: none;
+	}
+}

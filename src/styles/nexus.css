@@ -1,0 +1,322 @@
+/* 知合领读人手册 — 白底 + 手册蓝 (#184088) */
+@import './nexus-splash.css';
+
+@font-face {
+	font-family: 'FZ Qing Ke Ben Yue Song';
+	src: url('/fonts/FZQingKeBenYueSong.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
+:root {
+	--nexus-blue: #184088;
+	--nexus-blue-dark: #0f3068;
+	--nexus-blue-light: #2a5aa8;
+	--nexus-blue-pale: #d0d8e8;
+	--nexus-blue-mist: #e8edf5;
+	--nexus-white: #ffffff;
+	--nexus-paper: #f8f9fb;
+	--nexus-ink: #1a1a1a;
+	--nexus-ink-soft: #4a5568;
+	--nexus-font-display: 'FZ Qing Ke Ben Yue Song', 'Noto Serif SC', serif;
+
+	--sl-font: 'Noto Sans SC', system-ui, sans-serif;
+	--sl-font-system: var(--sl-font);
+
+	/* 布局：更宽松的侧边栏与正文 */
+	--sl-sidebar-width: 24rem;
+	--sl-sidebar-pad-x: 2rem;
+	--sl-content-pad-x: 2rem;
+	--sl-content-gap-y: 2rem;
+	--sl-content-width: 48rem;
+
+	/* Light theme (default — matches printed handbook) */
+	--sl-color-accent-low: #e8edf5;
+	--sl-color-accent: #184088;
+	--sl-color-accent-high: #0f3068;
+	--sl-color-white: #1a1a1a;
+	--sl-color-gray-1: #2d3748;
+	--sl-color-gray-2: #4a5568;
+	--sl-color-gray-3: #718096;
+	--sl-color-gray-4: #a0aec0;
+	--sl-color-gray-5: #cbd5e0;
+	--sl-color-gray-6: #e8edf5;
+	--sl-color-gray-7: #f8f9fb;
+	--sl-color-black: #ffffff;
+}
+
+:root[data-theme='dark'] {
+	--sl-color-accent-low: #0f3068;
+	--sl-color-accent: #5b8fd4;
+	--sl-color-accent-high: #d0d8e8;
+	--sl-color-white: #f0f4f8;
+	--sl-color-gray-1: #e2e8f0;
+	--sl-color-gray-2: #cbd5e0;
+	--sl-color-gray-3: #a0aec0;
+	--sl-color-gray-4: #718096;
+	--sl-color-gray-5: #4a5568;
+	--sl-color-gray-6: #2d3748;
+	--sl-color-gray-7: #1a202c;
+	--sl-color-black: #0f1724;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+/* Header — clean white bar like the handbook cover */
+header.header {
+	background: var(--nexus-white);
+	border-bottom: 1px solid var(--nexus-blue-mist);
+}
+
+:root[data-theme='dark'] header.header {
+	background: var(--sl-color-black);
+	border-bottom-color: var(--sl-color-gray-6);
+}
+
+/* Splash landing header on white hero */
+[data-has-hero] header.header {
+	background: transparent;
+	border-bottom-color: transparent;
+	backdrop-filter: none;
+}
+
+[data-has-hero] .site-title,
+[data-has-hero] header.header a,
+[data-has-hero] header.header button {
+	color: #184088;
+}
+
+[data-has-hero] button[data-open-modal] {
+	border-color: #d0d8e8;
+	background: rgba(255, 255, 255, 0.85);
+}
+
+[data-has-hero] .main-pane {
+	overflow: hidden;
+}
+
+[data-has-hero] footer,
+[data-has-hero] .pagination-links,
+[data-has-hero] .content-panel + .content-panel {
+	display: none;
+}
+
+[data-has-hero] .sl-markdown-content {
+	margin: 0;
+}
+
+.nexus-seo {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+/* Docs typography — serif headings like inner pages */
+.sl-markdown-content {
+	font-size: 1.0625rem;
+	line-height: 2;
+	max-width: 48rem;
+}
+
+.sl-markdown-content h1 {
+	margin-bottom: 1.75rem;
+}
+
+.sl-markdown-content h2 {
+	margin-top: 3rem;
+	margin-bottom: 1.15rem;
+}
+
+.sl-markdown-content h3 {
+	margin-top: 2.25rem;
+	margin-bottom: 0.85rem;
+}
+
+.sl-markdown-content p + p {
+	margin-top: 1.15rem;
+}
+
+.sl-markdown-content ul,
+.sl-markdown-content ol {
+	margin: 1.35rem 0 1.75rem;
+	padding-left: 1.5rem;
+}
+
+.sl-markdown-content li + li {
+	margin-top: 0.65rem;
+}
+
+.sl-markdown-content h1,
+.sl-markdown-content h2 {
+	font-family: var(--nexus-font-display);
+	letter-spacing: 0.04em;
+	color: var(--nexus-blue);
+}
+
+.sl-markdown-content h3,
+.sl-markdown-content h4 {
+	font-family: 'Noto Serif SC', serif;
+	letter-spacing: 0.02em;
+	color: var(--nexus-blue);
+}
+
+:root[data-theme='dark'] .sl-markdown-content h1,
+:root[data-theme='dark'] .sl-markdown-content h2,
+:root[data-theme='dark'] .sl-markdown-content h3,
+:root[data-theme='dark'] .sl-markdown-content h4 {
+	color: var(--sl-color-accent);
+}
+
+.sl-markdown-content blockquote {
+	border-inline-start-color: var(--nexus-blue);
+	background: color-mix(in srgb, var(--nexus-blue) 6%, transparent);
+}
+
+.sl-markdown-content a {
+	color: var(--nexus-blue);
+}
+
+:root[data-theme='dark'] .sl-markdown-content a {
+	color: var(--sl-color-accent);
+}
+
+/* Sidebar — 更宽松的导航间距 */
+.sidebar-content {
+	font-size: 0.96rem;
+	line-height: 1.7;
+	padding-top: 2rem;
+	padding-bottom: 2.5rem;
+	gap: 1.75rem;
+}
+
+.sidebar-content :global(ul) {
+	--sl-sidebar-item-padding-inline: 0.85rem;
+}
+
+.sidebar-content :global(.top-level > li + li) {
+	margin-top: 1.5rem !important;
+}
+
+.sidebar-content :global(a) {
+	padding: 0.65em 1em !important;
+	line-height: 1.65 !important;
+	border-radius: 0.35rem;
+}
+
+.sidebar-content :global(summary) {
+	padding: 0.6em 1em !important;
+	line-height: 1.65 !important;
+}
+
+.sidebar-content :global(ul ul) {
+	margin-top: 0.5rem;
+}
+
+.sidebar-content :global(ul ul li) {
+	margin-top: 0.35rem;
+	padding-inline-start: 1rem !important;
+}
+
+.sidebar-content :global(.large) {
+	font-weight: 600;
+	letter-spacing: 0.02em;
+}
+
+.sidebar-content a[aria-current='page'] {
+	background: var(--nexus-blue);
+	color: var(--nexus-white);
+	padding: 0.65em 1em;
+}
+
+/* Pagination links — 更宽松 */
+.pagination-links {
+	gap: 1.25rem;
+	margin-top: 2.5rem;
+}
+
+.pagination-links a {
+	padding: 1.15rem 1.35rem;
+}
+
+:root[data-theme='dark'] .sidebar-content a[aria-current='page'] {
+	background: var(--sl-color-accent);
+	color: var(--sl-color-black);
+}
+
+/* Docs page atmosphere */
+.page:not(:has([data-has-hero])) .main-frame {
+	background:
+		radial-gradient(ellipse 45% 28% at 100% 0%, color-mix(in srgb, var(--nexus-blue) 6%, transparent), transparent 55%),
+		var(--nexus-white);
+}
+
+:root[data-theme='dark'] .page:not(:has([data-has-hero])) .main-frame {
+	background: var(--sl-color-black);
+}
+
+/* Search bar accent */
+button[data-open-modal] {
+	border-color: var(--nexus-blue-pale);
+}
+
+/* Pagination links */
+.pagination-links a {
+	border-color: var(--nexus-blue-pale);
+	transition:
+		border-color 0.2s ease,
+		color 0.2s ease,
+		transform 0.2s ease;
+}
+
+.pagination-links a:hover {
+	border-color: var(--nexus-blue);
+	color: var(--nexus-blue);
+	transform: translateY(-1px);
+}
+
+/* Sidebar link hover */
+.sidebar-content a:not([aria-current='page']):hover {
+	color: var(--nexus-blue);
+	transition: color 0.15s ease;
+}
+
+/* Content panel subtle entrance on docs pages */
+.page:not(:has([data-has-hero])) .content-panel {
+	animation: panel-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes panel-in {
+	from {
+		opacity: 0;
+		transform: translateY(8px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.page:not(:has([data-has-hero])) .content-panel {
+		animation: none;
+	}
+
+	.pagination-links a:hover {
+		transform: none;
+	}
+}
+
+/* Right TOC accent */
+starlight-toc a[aria-current='true'],
+.mobile-starlight-toc a[aria-current='true'] {
+	color: var(--nexus-blue);
+}

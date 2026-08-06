@@ -1,0 +1,65 @@
+/* 页面切换与进入动效 */
+
+@keyframes site-fade-in {
+	from {
+		opacity: 0;
+		transform: translateY(8px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes site-fade-out {
+	from {
+		opacity: 1;
+	}
+
+	to {
+		opacity: 0;
+	}
+}
+
+::view-transition-old(root) {
+	animation: site-fade-out 0.18s ease-out both;
+}
+
+::view-transition-new(root) {
+	animation: site-fade-in 0.32s ease-out both;
+}
+
+.site-main {
+	view-transition-name: site-main;
+}
+
+.site-header {
+	view-transition-name: site-header;
+}
+
+.site-footer {
+	view-transition-name: site-footer;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	::view-transition-old(root),
+	::view-transition-new(root) {
+		animation: none;
+	}
+
+	.page-hero,
+	.site-docs {
+		animation: none !important;
+	}
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.page-hero {
+		animation: site-fade-in 0.45s ease both;
+	}
+
+	.site-docs {
+		animation: site-fade-in 0.5s 0.06s ease both;
+	}
+}

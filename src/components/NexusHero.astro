@@ -1,0 +1,97 @@
+---
+import { Icon } from '@astrojs/starlight/components';
+import NexusSplashCanvas from './NexusSplashCanvas.astro';
+import { HANDBOOK_PDF_PATH, HANDBOOK_PDF_FILENAME } from '../consts';
+
+const { data } = Astro.locals.starlightRoute.entry;
+const { actions = [] } = data.hero || {};
+---
+
+<section class="nexus-hero nexus-hero--starlight" aria-label="知合领读人手册">
+	<NexusSplashCanvas />
+
+	<div class="nexus-hero__inner">
+		<div class="nexus-hero__content">
+			<p class="nexus-hero__eyebrow">NEXUS Seminar Manual</p>
+			<h1 class="nexus-hero__title" id="_top" data-page-title>
+				<span class="nexus-hero__title-line">圆桌</span>
+				<span class="nexus-hero__title-line">领读人手册</span>
+			</h1>
+			<p class="nexus-hero__org">知合 NEXUS</p>
+			<p class="nexus-hero__tagline">心若流水，亦如明火</p>
+			<p class="nexus-hero__lede">
+				从理念到备课，从圆桌到营地——写给每一位知合圆桌领读人的行动指南。
+			</p>
+
+			<div class="nexus-hero__actions">
+				{
+					actions.map((action) => (
+						<a
+							href={action.link}
+							class:list={[
+								'nexus-hero__cta',
+								action.variant === 'minimal' && 'nexus-hero__cta--ghost',
+							]}
+						>
+							{action.text}
+							{action.icon?.name && (
+								<Icon name={action.icon.name} size="1.1rem" class="nexus-hero__cta-icon" />
+							)}
+						</a>
+					))
+				}
+				{
+					actions.length === 0 && (
+						<a class="nexus-hero__cta" href="/handbook/start/">
+							从这里开始阅读
+							<Icon name="right-arrow" size="1.1rem" class="nexus-hero__cta-icon" />
+						</a>
+					)
+				}
+				<a class="nexus-hero__cta nexus-hero__cta--ghost" href="/handbook/01-about/">
+					浏览章节
+				</a>
+				<a class="nexus-hero__cta nexus-hero__cta--ghost" href="/">
+					← 返回官网
+				</a>
+				<a
+					class="nexus-hero__cta nexus-hero__cta--ghost"
+					href={HANDBOOK_PDF_PATH}
+					download={HANDBOOK_PDF_FILENAME}
+				>
+					下载 PDF 源文件
+					<Icon name="download" size="1.1rem" class="nexus-hero__cta-icon" />
+				</a>
+			</div>
+		</div>
+
+		<footer class="nexus-hero__footer">
+			<div class="nexus-hero__footer-meta">
+				<p class="nexus-hero__edition">EDITED BY NEXUS</p>
+				<p class="nexus-hero__edition-cn">知合课程组 编辑</p>
+			</div>
+			<svg class="nexus-hero__year" viewBox="0 0 180 80" aria-hidden="true">
+				<text
+					x="0"
+					y="62"
+					fill="none"
+					stroke="#184088"
+					stroke-width="2"
+					font-family="Noto Sans SC, sans-serif"
+					font-size="56"
+					font-weight="700">2025</text>
+			</svg>
+			<p class="nexus-hero__caption">圆桌 · 共读 · 联结</p>
+		</footer>
+	</div>
+</section>
+
+<style>
+	.nexus-hero__cta:hover :global(.nexus-hero__cta-icon) {
+		transform: translateX(3px);
+	}
+
+	.nexus-hero__cta :global(.nexus-hero__cta-icon) {
+		transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+	}
+</style>
