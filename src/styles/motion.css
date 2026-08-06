@@ -1,0 +1,227 @@
+/* 编辑风 motion — 安静、留白、缓慢 */
+
+:root {
+	--motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
+	--motion-duration: 800ms;
+	--motion-stagger: 100ms;
+}
+
+/* 初始隐藏：等待 GSAP 或 CSS hero 入场 */
+html:not(.motion-ready):not(.motion-reduced) [data-reveal-item],
+html:not(.motion-ready):not(.motion-reduced) [data-reveal-stagger] > *,
+html:not(.motion-ready):not(.motion-reduced) [data-reveal],
+html:not(.motion-ready):not(.motion-reduced) [data-reveal-image] img {
+	opacity: 0;
+}
+
+html.motion-reduced [data-reveal-item],
+html.motion-reduced [data-reveal-stagger] > *,
+html.motion-reduced [data-reveal],
+html.motion-reduced [data-reveal-image],
+html.motion-reduced [data-reveal-image] img {
+	opacity: 1 !important;
+	transform: none !important;
+	clip-path: none !important;
+	filter: none !important;
+	animation: none !important;
+}
+
+/* —— 首页 Hero 入场 —— */
+
+@keyframes motion-bg-in {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes motion-fade-up {
+	from {
+		opacity: 0;
+		transform: translate3d(0, 30px, 0);
+	}
+	to {
+		opacity: 1;
+		transform: translate3d(0, 0, 0);
+	}
+}
+
+@keyframes motion-hero-motto-in {
+	from {
+		opacity: 0;
+		transform: translateY(-50%) scale(1.02);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(-50%) scale(1);
+	}
+}
+
+@keyframes motion-float {
+	0%,
+	100% {
+		transform: translate3d(0, -6px, 0);
+	}
+	50% {
+		transform: translate3d(0, 6px, 0);
+	}
+}
+
+.nexus-hero--site[data-hero-load] {
+	animation: motion-bg-in 1s var(--motion-ease) both;
+}
+
+.nexus-hero--site[data-hero-load] .nexus-hero__motto {
+	animation: motion-hero-motto-in 1.1s var(--motion-ease) 0.12s both;
+}
+
+.nexus-hero--site[data-hero-load] .nexus-hero__motto-col {
+	animation: motion-float 10s ease-in-out 1.2s infinite;
+}
+
+.nexus-hero--site[data-hero-load] .nexus-hero__motto-col:nth-child(2) {
+	animation: motion-float 11s ease-in-out 1.8s infinite;
+}
+
+.nexus-hero--site[data-hero-load] .nexus-hero__title-line {
+	opacity: 0;
+	animation: motion-fade-up 1s var(--motion-ease) both;
+}
+
+.nexus-hero--site[data-hero-load] .nexus-hero__title-line:nth-child(1) {
+	animation-delay: 0.2s;
+}
+
+.nexus-hero--site[data-hero-load] .nexus-hero__title-line:nth-child(2) {
+	animation-delay: 0.35s;
+}
+
+.nexus-hero--site[data-hero-load] .nexus-hero__mission-grid {
+	opacity: 0;
+	animation: motion-fade-up 1s var(--motion-ease) 0.5s both;
+}
+
+.nexus-hero--site[data-hero-load] .nexus-hero__actions {
+	opacity: 0;
+	animation: motion-fade-up 1s var(--motion-ease) 0.72s both;
+}
+
+/* —— 导航滚动 —— */
+
+.site-header {
+	transition:
+		background-color 400ms var(--motion-ease),
+		border-color 400ms var(--motion-ease),
+		backdrop-filter 400ms var(--motion-ease);
+}
+
+.site-header--scrolled {
+	background: rgba(255, 255, 255, 0.78);
+	border-bottom-color: rgba(232, 237, 245, 0.85);
+	backdrop-filter: blur(14px);
+	-webkit-backdrop-filter: blur(14px);
+	box-shadow: none;
+}
+
+/* —— 链接与按钮 —— */
+
+.site-nav__link:not(.site-nav__link--cta) {
+	background-image: linear-gradient(currentColor, currentColor);
+	background-size: 0% 1px;
+	background-repeat: no-repeat;
+	background-position: 0 100%;
+	transition:
+		color 300ms var(--motion-ease),
+		background-size 300ms var(--motion-ease),
+		background-color 300ms var(--motion-ease);
+}
+
+.site-nav__link:not(.site-nav__link--cta):hover,
+.site-nav__link:not(.site-nav__link--cta)[aria-current='page'] {
+	transform: none;
+	background-size: 100% 1px;
+}
+
+.site-closing__link,
+.site-card__highlight a,
+.prose a {
+	text-decoration: none;
+	background-image: linear-gradient(currentColor, currentColor);
+	background-size: 0% 1px;
+	background-repeat: no-repeat;
+	background-position: 0 100%;
+	transition: background-size 300ms var(--motion-ease);
+}
+
+.site-closing__link:hover,
+.site-card__highlight a:hover,
+.prose a:hover {
+	background-size: 100% 1px;
+}
+
+.nexus-hero__cta::after {
+	content: '→';
+	margin-left: 0.15em;
+	transition: transform 300ms var(--motion-ease);
+}
+
+.nexus-hero__cta:hover::after {
+	transform: translateX(4px);
+}
+
+/* —— 图片 —— */
+
+.camp-photo__img {
+	transition:
+		filter 400ms var(--motion-ease),
+		transform 600ms var(--motion-ease);
+}
+
+.camp-photo:hover .camp-photo__img {
+	filter: brightness(1.04);
+}
+
+[data-reveal-image] {
+	overflow: hidden;
+}
+
+/* —— 区块过渡 —— */
+
+.site-section {
+	transition: background-color 700ms var(--motion-ease);
+}
+
+.site-docs {
+	transition: background 700ms var(--motion-ease);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.nexus-hero--site[data-hero-load],
+	.nexus-hero--site[data-hero-load] .nexus-hero__motto,
+	.nexus-hero--site[data-hero-load] .nexus-hero__motto-col,
+	.nexus-hero--site[data-hero-load] .nexus-hero__title-line,
+	.nexus-hero--site[data-hero-load] .nexus-hero__mission-grid,
+	.nexus-hero--site[data-hero-load] .nexus-hero__actions {
+		animation: none !important;
+		opacity: 1 !important;
+		transform: none !important;
+	}
+
+	.nexus-hero__motto-col {
+		animation: none !important;
+	}
+
+	.site-header--scrolled {
+		backdrop-filter: none;
+	}
+
+	.nexus-hero__cta::after {
+		transition: none;
+	}
+
+	.camp-photo:hover .camp-photo__img {
+		filter: none;
+	}
+}

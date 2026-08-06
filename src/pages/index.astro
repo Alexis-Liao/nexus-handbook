@@ -33,7 +33,7 @@ import {
 		foundingDate: String(site.yearFounded),
 		slogan: site.motto,
 	})} />
-	<section class="nexus-hero nexus-hero--site" aria-label="知合 Nexus">
+	<section class="nexus-hero nexus-hero--site" data-hero-load aria-label="知合 Nexus">
 		<HomeHeroMotto />
 
 		<div class="nexus-hero__inner">
@@ -80,9 +80,7 @@ import {
 						))
 					}
 				</div>
-				<div data-reveal="fade">
-					<CampGallery photos={campPhotos} compact />
-				</div>
+				<CampGallery photos={campPhotos} compact />
 				<div class="nexus-hero__actions site-section__actions" data-reveal="fade">
 					<a class="nexus-hero__cta" href="/programs/">项目详情与时间线</a>
 				</div>
@@ -142,9 +140,7 @@ import {
 
 		<section class="site-closing">
 			<div data-reveal-block>
-				<p class="site-closing__text" data-reveal-item>
-					<span class="reveal-line__inner">共赴平原</span>
-				</p>
+				<p class="site-closing__text" data-reveal-item>共赴平原</p>
 			</div>
 			<div class="site-closing__contact" data-reveal-stagger>
 				<div class="site-closing__item">

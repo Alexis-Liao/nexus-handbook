@@ -13,7 +13,7 @@ const { photos, compact = false } = Astro.props;
 	{
 		photos.map((photo) => (
 			<figure class="camp-photo">
-				<div class="camp-photo__img-wrap">
+				<div class="camp-photo__img-wrap" data-reveal-image>
 					<img src={photo.src} alt={photo.alt} class="camp-photo__img" loading="lazy" />
 				</div>
 				<figcaption class="camp-photo__caption">

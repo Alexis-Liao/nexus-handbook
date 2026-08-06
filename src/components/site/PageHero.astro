@@ -10,18 +10,8 @@ const { eyebrow, title, lede } = Astro.props;
 
 <section class="page-hero">
 	<div class="site-page-inner" data-reveal-block>
-		<p class="page-hero__eyebrow" data-reveal-item>
-			<span class="reveal-line__inner">{eyebrow}</span>
-		</p>
-		<h1 class="page-hero__title" data-reveal-item>
-			<span class="reveal-line__inner">{title}</span>
-		</h1>
-		{
-			lede && (
-				<p class="page-hero__lede" data-reveal-item>
-					<span class="reveal-line__inner">{lede}</span>
-				</p>
-			)
-		}
+		<p class="page-hero__eyebrow" data-reveal-item>{eyebrow}</p>
+		<h1 class="page-hero__title" data-reveal-item>{title}</h1>
+		{lede && <p class="page-hero__lede" data-reveal-item>{lede}</p>}
 	</div>
 </section>
