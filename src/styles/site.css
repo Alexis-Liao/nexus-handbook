@@ -305,39 +305,11 @@ a {
 	background: #fff;
 }
 
-.site-footer__qrcode figcaption,
-.site-footer__xhs-caption {
+.site-footer__qrcode figcaption {
 	margin: 0;
 	font-size: 0.78rem;
 	color: #718096;
 	line-height: 1.4;
-}
-
-.site-footer__xhs-badge {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 5.5rem;
-	height: 5.5rem;
-	border-radius: 0.35rem;
-	border: 1px solid var(--nexus-blue-mist);
-	background: #fff;
-	color: #ff2442;
-}
-
-.site-footer__xhs-badge svg {
-	width: 2.25rem;
-	height: 2.25rem;
-}
-
-.site-footer__xhs-id {
-	margin: 0;
-	font-size: 0.82rem;
-	font-weight: 600;
-	color: var(--nexus-ink-soft);
-	line-height: 1.35;
-	letter-spacing: 0.01em;
-	word-break: break-all;
 }
 
 .site-footer__contact {

@@ -24,7 +24,12 @@ import { advantages, joinPaths, partners } from '../data/site';
 								<p class="site-card__text">{item.description}</p>
 								<p class="site-card__highlight">
 									{'href' in item.highlight && item.highlight.href ? (
-										<a href={item.highlight.href} target="_blank" rel="noopener noreferrer">
+										<a
+											href={item.highlight.href}
+											{...(item.highlight.href.startsWith('http')
+												? { target: '_blank', rel: 'noopener noreferrer' }
+												: {})}
+										>
 											{item.highlight.text}
 										</a>
 									) : 'email' in item.highlight && item.highlight.email ? (
