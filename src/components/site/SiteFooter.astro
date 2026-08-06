@@ -1,48 +1,112 @@
 ---
-import { nav, site } from '../../data/site';
+import { contact, footerColumns, site, socialLinks } from '../../data/site';
 import { LOGO_PATH, LOGO_ALT } from '../../consts';
+
+const wechat = socialLinks.find((item) => item.id === 'wechat');
+const xiaohongshu = socialLinks.find((item) => item.id === 'xiaohongshu');
 ---
 
 <footer class="site-footer" transition:persist="site-footer">
 	<div class="site-page-inner site-footer__inner">
-		<div class="site-footer__brand">
-			<img src={LOGO_PATH} alt={LOGO_ALT} class="site-footer__logo" />
-			<p class="site-footer__tagline">{site.tagline}</p>
-		</div>
+		<div class="site-footer__grid">
+			<div class="site-footer__brand">
+				<a class="site-footer__logo-link" href="/" aria-label="返回首页">
+					<img src={LOGO_PATH} alt={LOGO_ALT} class="site-footer__logo" />
+				</a>
 
-		<div class="site-footer__links">
-			{nav.map((item) => <a href={item.href}>{item.label}</a>)}
+				<div class="site-footer__media">
+					{
+						wechat && 'qrcode' in wechat && (
+							<figure class="site-footer__qrcode">
+								<img
+									src={wechat.qrcode}
+									alt={`${wechat.label}二维码`}
+									width="96"
+									height="96"
+									loading="lazy"
+								/>
+								<figcaption>扫码关注公众号</figcaption>
+							</figure>
+						)
+					}
+
+					{
+						xiaohongshu && 'href' in xiaohongshu && (
+							<a
+								class="site-footer__social-link site-footer__social-link--xhs"
+								href={xiaohongshu.href}
+								target="_blank"
+								rel="noopener noreferrer"
+								aria-label={`${xiaohongshu.label}：${xiaohongshu.name}`}
+								title={`${xiaohongshu.label}：${xiaohongshu.name}`}
+							>
+								<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+									<rect x="3" y="3" width="18" height="18" rx="4" fill="currentColor" />
+									<path
+										fill="#fff"
+										d="M7.2 16.2c.45.68 1.38.62 1.38.62l3.1-1.55s3.62 2.18 5.52-.92c0 0 .85-1.48-.55-2.88-1.35-1.45-3.2-.55-4.05.35-.85.9-1.35 1.65-2.2 1.65-.85 0-1.35-.45-2.2-1.35-.85-.9-2.05-1.35-2.9-.45-.85.9-.55 2.55-.55 2.55s.35 1.25 1.25 1.88z"
+									/>
+									<circle cx="9.2" cy="9.4" r="1" fill="#fff" />
+									<circle cx="14.8" cy="9.4" r="1" fill="#fff" />
+								</svg>
+							</a>
+						)
+					}
+				</div>
+
+				<div class="site-footer__contact">
+					<p>
+						<span class="site-footer__contact-label">电子邮箱：</span>
+						<a href={`mailto:${contact.email}`}>{contact.email}</a>
+					</p>
+					{
+						wechat && (
+							<p>
+								<span class="site-footer__contact-label">{wechat.label}：</span>
+								{wechat.name}
+							</p>
+						)
+					}
+					{
+						xiaohongshu && 'href' in xiaohongshu && (
+							<p>
+								<span class="site-footer__contact-label">{xiaohongshu.label}：</span>
+								<a href={xiaohongshu.href} target="_blank" rel="noopener noreferrer">
+									{xiaohongshu.name}
+								</a>
+							</p>
+						)
+					}
+				</div>
+			</div>
+
+			{
+				footerColumns.map((column) => (
+					<div class="site-footer__column">
+						<h2 class="site-footer__column-title">{column.title}</h2>
+						<ul class="site-footer__column-links">
+							{
+								column.links.map((link) => (
+									<li>
+										<a
+											href={link.href}
+											{'external' in link && link.external
+												? { target: '_blank', rel: 'noopener noreferrer' }
+												: {}}
+										>
+											{link.label}
+										</a>
+									</li>
+								))
+							}
+						</ul>
+					</div>
+				))
+			}
 		</div>
 
 		<p class="site-footer__meta">
-			© {new Date().getFullYear()} 知合 Nexus · 非营利性创新教育项目 · 创立于 {site.yearFounded}
+			© {new Date().getFullYear()} {site.name} · 非营利性创新教育项目 · 创立于 {site.yearFounded}
 		</p>
 	</div>
 </footer>
-
-<style>
-	.site-footer__brand {
-		display: flex;
-		align-items: center;
-		gap: clamp(1rem, 3vw, 1.75rem);
-		flex-wrap: wrap;
-	}
-
-	.site-footer__logo {
-		height: 4.5rem;
-		width: auto;
-		object-fit: contain;
-		flex-shrink: 0;
-	}
-
-	@media (max-width: 720px) {
-		.site-footer__logo {
-			height: 3rem;
-		}
-
-		.site-footer__tagline {
-			font-size: clamp(0.92rem, 3.5vw, 1.05rem);
-			letter-spacing: 0.08em;
-		}
-	}
-</style>

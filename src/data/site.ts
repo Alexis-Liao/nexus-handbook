@@ -16,6 +16,61 @@ export const contact = {
 	},
 } as const;
 
+export const socialLinks = [
+	{
+		id: 'wechat',
+		label: '微信公众号',
+		name: '知合Nexus',
+		qrcode: '/images/social/wechat-qrcode.png',
+	},
+	{
+		id: 'xiaohongshu',
+		label: '小红书',
+		name: 'Nexus1313257414',
+		href: 'https://www.xiaohongshu.com/search_result?keyword=Nexus1313257414',
+	},
+] as const;
+
+export const footerColumns = [
+	{
+		title: '项目',
+		links: [
+			{ label: '读书营总览', href: '/programs/' },
+			{ label: '暑期读书营', href: '/programs/' },
+			{ label: '冬季读书会', href: '/programs/' },
+			{ label: '线上活动', href: '/programs/' },
+		],
+	},
+	{
+		title: '了解我们',
+		links: [
+			{ label: '关于知合', href: '/about/' },
+			{ label: '理念与方法', href: '/philosophy/' },
+			{ label: '团队介绍', href: '/team/' },
+		],
+	},
+	{
+		title: '参与',
+		links: [
+			{ label: '参与方式', href: '/join/' },
+			{ label: '成为共读人', href: '/join/' },
+			{ label: '成为领读人', href: '/join/' },
+			{ label: '加入工作团队', href: '/join/' },
+		],
+	},
+	{
+		title: '资源',
+		links: [
+			{ label: '领读人手册', href: '/handbook/' },
+			{
+				label: '2026 暑期招募',
+				href: 'https://mp.weixin.qq.com/s/YdySkm8dm79CfKzls2mJ0w',
+				external: true,
+			},
+		],
+	},
+] as const;
+
 export const nav = [
 	{ label: '首页', href: '/' },
 	{ label: '关于', href: '/about/' },
