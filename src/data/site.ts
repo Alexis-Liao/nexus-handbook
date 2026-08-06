@@ -134,6 +134,21 @@ export const roundtable = {
 	],
 } as const;
 
+export const campPhotos = [
+	{
+		src: '/images/camps/zunyi-2025-opening.png',
+		alt: '2025 遵义夏季营开营仪式合影',
+		caption: '2025 遵义夏季营 · 开营仪式',
+		tag: '暑期读书营',
+	},
+	{
+		src: '/images/camps/camp-group-2025.png',
+		alt: '知合读书营共读人与领读人合影',
+		caption: '营地期间的圆桌共学与结业时刻',
+		tag: '营地现场',
+	},
+] as const;
+
 export const programs = [
 	{
 		id: 'summer',

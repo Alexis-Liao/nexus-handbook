@@ -27,46 +27,36 @@
 	background: #f8f9fb;
 }
 
-.nexus-hero--site .nexus-hero__canvas--rings {
+.nexus-hero--site .nexus-hero__canvas--motto {
 	z-index: 1;
 }
 
-.nexus-hero--site .nexus-hero__rings {
-	opacity: 0.62;
-	animation:
-		nexus-rings-enter 1.4s cubic-bezier(0.22, 1, 0.36, 1) both,
-		nexus-rings-float 9s ease-in-out infinite;
+.nexus-hero__motto {
+	position: absolute;
+	right: clamp(0.5rem, 4vw, 3rem);
+	top: 50%;
+	transform: translateY(-50%);
+	display: flex;
+	flex-direction: row-reverse;
+	align-items: center;
+	gap: clamp(0.65rem, 1.8vw, 1.35rem);
 }
 
-.nexus-hero--site .nexus-hero__ring--1 {
-	stroke-dasharray: 12 18;
-	animation:
-		nexus-ring-spin 52s linear infinite,
-		nexus-ring-dash 14s linear infinite,
-		nexus-ring-breathe 6s ease-in-out infinite;
+.nexus-hero__motto-col {
+	margin: 0;
+	writing-mode: vertical-rl;
+	text-orientation: upright;
+	font-family: 'FZ Qing Ke Ben Yue Song', 'Noto Serif SC', serif;
+	font-size: clamp(3.25rem, 9.5vw, 6.75rem);
+	font-weight: normal;
+	line-height: 1.05;
+	letter-spacing: 0.14em;
+	color: rgba(24, 64, 136, 0.15);
+	animation: nexus-motto-shimmer 5.5s ease-in-out infinite;
 }
 
-.nexus-hero--site .nexus-hero__ring--2 {
-	animation:
-		nexus-ring-spin 38s linear infinite reverse,
-		nexus-ring-breathe 5s ease-in-out 0.8s infinite;
-}
-
-.nexus-hero--site .nexus-hero__ring--3 {
-	animation:
-		nexus-ring-spin 24s linear infinite,
-		nexus-ring-breathe 4.5s ease-in-out 1.2s infinite;
-}
-
-.nexus-hero--site .nexus-hero__ring--4 {
-	animation:
-		nexus-ring-spin 18s linear infinite reverse,
-		nexus-ring-opacity-pulse 5s ease-in-out infinite;
-}
-
-.nexus-hero--site .nexus-hero__dots {
-	transform-origin: 300px 300px;
-	animation: nexus-dot-orbit 80s linear infinite;
+.nexus-hero__motto-col:nth-child(2) {
+	animation-delay: 2.75s;
 }
 
 .nexus-hero--site .nexus-hero__inner {
@@ -78,6 +68,18 @@
 .nexus-hero--site .nexus-hero__content {
 	width: 100%;
 	max-width: 48rem;
+}
+
+.nexus-hero--site .nexus-hero__title {
+	animation: nexus-title-float 8s 1.15s ease-in-out infinite;
+}
+
+.nexus-hero--site .nexus-hero__title-line:nth-child(1) {
+	animation: nexus-glide-in-left 1.05s 0.12s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.nexus-hero--site .nexus-hero__title-line:nth-child(2) {
+	animation: nexus-glide-in-left 1.05s 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .nexus-hero__canvas {
@@ -447,6 +449,39 @@
 	color: var(--nexus-white, #ffffff) !important;
 }
 
+@keyframes nexus-motto-shimmer {
+	0%,
+	100% {
+		opacity: 0.62;
+		color: rgba(24, 64, 136, 0.12);
+	}
+	50% {
+		opacity: 1;
+		color: rgba(24, 64, 136, 0.2);
+	}
+}
+
+@keyframes nexus-glide-in-left {
+	from {
+		opacity: 0;
+		transform: translateX(-2.75rem);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+@keyframes nexus-title-float {
+	0%,
+	100% {
+		transform: translateX(0);
+	}
+	50% {
+		transform: translateX(0.65rem);
+	}
+}
+
 @keyframes nexus-fade-up {
 	from {
 		opacity: 0;
@@ -591,10 +626,14 @@
 		padding-block: clamp(2.25rem, 7vh, 3.5rem);
 	}
 
-	.nexus-hero__rings {
-		right: -25%;
-		opacity: 0.28;
-		width: 70vw;
+	.nexus-hero__motto {
+		right: clamp(0.15rem, 2vw, 1rem);
+		gap: clamp(0.35rem, 1.2vw, 0.75rem);
+	}
+
+	.nexus-hero__motto-col {
+		font-size: clamp(2.5rem, 11vw, 4.25rem);
+		letter-spacing: 0.1em;
 	}
 
 	.nexus-hero__line {
@@ -674,9 +713,7 @@
 		font-size: 0.88rem;
 	}
 
-	.nexus-hero--site .nexus-hero__rings,
-	.nexus-hero--site .nexus-hero__ring,
-	.nexus-hero--site .nexus-hero__dots {
+	.nexus-hero--site .nexus-hero__motto-col {
 		animation: none !important;
 	}
 
@@ -708,8 +745,10 @@
 		justify-content: center;
 	}
 
-	.nexus-hero--site .nexus-hero__canvas--rings {
-		display: none;
+	.nexus-hero--site .nexus-hero__motto-col {
+		animation: none;
+		opacity: 0.75;
+		color: rgba(24, 64, 136, 0.14);
 	}
 
 	.nexus-hero--site .nexus-hero__title {
@@ -767,6 +806,7 @@
 
 	.nexus-hero__top,
 	.nexus-hero__eyebrow,
+	.nexus-hero__title,
 	.nexus-hero__title-line,
 	.nexus-hero__org,
 	.nexus-hero__tagline,
@@ -774,6 +814,7 @@
 	.nexus-hero__mission-grid,
 	.nexus-hero__actions,
 	.nexus-hero__footer,
+	.nexus-hero__motto-col,
 	.nexus-hero__rings,
 	.nexus-hero__line {
 		animation: none !important;

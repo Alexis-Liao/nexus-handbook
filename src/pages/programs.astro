@@ -2,7 +2,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/site/PageHero.astro';
 import SectionHead from '../components/site/SectionHead.astro';
-import { programs, timeline, sampleCourses } from '../data/site';
+import { programs, timeline, sampleCourses, campPhotos } from '../data/site';
+import CampGallery from '../components/site/CampGallery.astro';
 ---
 
 <BaseLayout
@@ -37,6 +38,17 @@ import { programs, timeline, sampleCourses } from '../data/site';
 		</section>
 
 		<section class="site-section site-section--paper">
+			<div class="site-page-inner">
+				<SectionHead
+					eyebrow="Camp Life"
+					title="营地现场"
+					intro="暑期与冬季读书营中，领读人与共读人在各地展开圆桌共学。"
+				/>
+				<CampGallery photos={campPhotos} />
+			</div>
+		</section>
+
+		<section class="site-section">
 			<div class="site-page-inner">
 				<SectionHead eyebrow="Timeline" title="知合营地工作时间线" />
 				<div class="timeline-road">

@@ -1,20 +1,38 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import HomeHeroRings from '../components/HomeHeroRings.astro';
+import HomeHeroMotto from '../components/HomeHeroMotto.astro';
+import CampGallery from '../components/site/CampGallery.astro';
 import {
 	site,
 	programs,
 	culturalPlain,
 	campLocations,
+	campPhotos,
 	testimonials,
 	advantages,
 	contact,
 } from '../data/site';
 ---
 
-<BaseLayout title={site.name} description={site.description} splash>
+<BaseLayout
+	title={site.name}
+	description="知合 NEXUS 是致力于在中国文化平原地区为青年人搭建思辨、讨论、共学社群的非营利教育项目。了解读书营、圆桌共学、团队与参与方式。"
+	splash
+>
+	<script type="application/ld+json" set:html={JSON.stringify({
+		'@context': 'https://schema.org',
+		'@type': 'Organization',
+		name: '知合 NEXUS',
+		alternateName: ['知合Nexus', '知合 Nexus', 'Zhihe Nexus'],
+		url: 'https://zhihenexus.org',
+		logo: 'https://zhihenexus.org/images/nexus-logo.png',
+		description: site.description,
+		email: contact.email,
+		foundingDate: String(site.yearFounded),
+		slogan: site.motto,
+	})} />
 	<section class="nexus-hero nexus-hero--site" aria-label="知合 Nexus">
-		<HomeHeroRings />
+		<HomeHeroMotto />
 
 		<div class="nexus-hero__inner">
 			<div class="nexus-hero__content">
@@ -22,7 +40,6 @@ import {
 					<span class="nexus-hero__title-line">构建文化平原</span>
 					<span class="nexus-hero__title-line">的青年社群</span>
 				</h1>
-				<p class="nexus-hero__tagline">{site.motto}</p>
 
 				<div class="nexus-hero__mission-grid">
 					<div class="nexus-hero__mission-item">
@@ -66,6 +83,7 @@ import {
 						))
 					}
 				</div>
+				<CampGallery photos={campPhotos} compact />
 				<div class="nexus-hero__actions site-section__actions">
 					<a class="nexus-hero__cta" href="/programs/">项目详情与时间线</a>
 				</div>

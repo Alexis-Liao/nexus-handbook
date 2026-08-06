@@ -1439,6 +1439,59 @@ a {
 	color: #718096;
 }
 
+.camp-gallery {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: var(--space-block);
+	margin-top: var(--space-block);
+}
+
+.camp-gallery--compact {
+	margin-top: clamp(2rem, 5vw, 2.75rem);
+}
+
+.camp-photo {
+	margin: 0;
+	border: 1px solid var(--nexus-blue-mist);
+	border-radius: 0.5rem;
+	overflow: hidden;
+	background: var(--nexus-white);
+	box-shadow: 0 8px 24px rgba(24, 64, 136, 0.05);
+}
+
+.camp-photo__img-wrap {
+	aspect-ratio: 16 / 10;
+	overflow: hidden;
+	background: var(--nexus-blue-mist);
+}
+
+.camp-photo__img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+.camp-photo__caption {
+	padding: 1rem 1.15rem 1.15rem;
+}
+
+.camp-photo__tag {
+	margin: 0;
+	font-size: 0.72rem;
+	font-weight: 700;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: var(--nexus-blue);
+}
+
+.camp-photo__text {
+	margin: 0.45rem 0 0;
+	font-size: 0.95rem;
+	color: var(--nexus-ink-soft);
+	line-height: 1.65;
+}
+
 .partner-card {
 	padding: 2rem 2.15rem;
 	border: 1px solid var(--nexus-blue-mist);
@@ -1714,6 +1767,15 @@ a {
 	.card-grid,
 	.card-grid--3 {
 		grid-template-columns: 1fr;
+	}
+
+	.camp-gallery {
+		grid-template-columns: 1fr;
+		gap: 1.25rem;
+	}
+
+	.camp-photo__caption {
+		padding: 0.9rem 1rem 1rem;
 	}
 }
 
