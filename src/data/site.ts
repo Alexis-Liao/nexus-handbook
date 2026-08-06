@@ -282,7 +282,9 @@ export const campLocations = [
 	'哈尔滨',
 	'遵义',
 	'泾川',
-	'三门',
+	'中山',
+	'临海',
+	'慈利',
 ] as const;
 
 export const testimonials = [

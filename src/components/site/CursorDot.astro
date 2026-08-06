@@ -1,0 +1,86 @@
+<div class="cursor-dot" aria-hidden="true"></div>
+
+<style>
+	.cursor-dot {
+		position: fixed;
+		left: 0;
+		top: 0;
+		width: 6px;
+		height: 6px;
+		margin: -3px 0 0 -3px;
+		border-radius: 50%;
+		background: var(--nexus-blue, #184088);
+		opacity: 0;
+		pointer-events: none;
+		z-index: 9999;
+		will-change: transform;
+		transition: opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	html.has-cursor-dot .cursor-dot.is-visible {
+		opacity: 0.72;
+	}
+
+	@media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+		.cursor-dot {
+			display: none !important;
+		}
+	}
+</style>
+
+<script>
+	function initCursorDot() {
+		const dot = document.querySelector('.cursor-dot');
+		if (!dot) return;
+
+		const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		const coarsePointer = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+
+		if (reduceMotion || coarsePointer) {
+			dot.remove();
+			document.documentElement.classList.remove('has-cursor-dot');
+			return;
+		}
+
+		if (dot.dataset.cursorBound === 'true') return;
+		dot.dataset.cursorBound = 'true';
+		document.documentElement.classList.add('has-cursor-dot');
+
+		let targetX = 0;
+		let targetY = 0;
+		let currentX = 0;
+		let currentY = 0;
+		let visible = false;
+
+		const onMove = (event: MouseEvent) => {
+			targetX = event.clientX;
+			targetY = event.clientY;
+			if (!visible) {
+				currentX = targetX;
+				currentY = targetY;
+				visible = true;
+				dot.classList.add('is-visible');
+			}
+		};
+
+		const onLeave = () => {
+			visible = false;
+			dot.classList.remove('is-visible');
+		};
+
+		document.addEventListener('mousemove', onMove);
+		document.addEventListener('mouseleave', onLeave);
+
+		const tick = () => {
+			currentX += (targetX - currentX) * 0.22;
+			currentY += (targetY - currentY) * 0.22;
+			dot.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
+			requestAnimationFrame(tick);
+		};
+
+		tick();
+	}
+
+	initCursorDot();
+	document.addEventListener('astro:page-load', initCursorDot);
+</script>
