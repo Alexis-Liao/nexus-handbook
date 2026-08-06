@@ -1,6 +1,7 @@
 ---
 import SiteHeader from '../components/site/SiteHeader.astro';
 import SiteFooter from '../components/site/SiteFooter.astro';
+import RevealInit from '../components/site/RevealInit.astro';
 import { ClientRouter } from 'astro:transitions';
 import { site } from '../data/site';
 import { LOGO_PATH, SITE_URL } from '../consts';
@@ -59,6 +60,7 @@ const ogImage = new URL(LOGO_PATH, SITE_URL);
 			</main>
 			<SiteFooter />
 		</div>
+		<RevealInit />
 		<script>
 			const header = document.querySelector('.site-header');
 			const toggle = document.querySelector('.site-nav-toggle');

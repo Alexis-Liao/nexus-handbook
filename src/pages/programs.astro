@@ -16,7 +16,7 @@ import CampGallery from '../components/site/CampGallery.astro';
 	<div class="site-docs">
 		<section class="site-section">
 			<div class="site-page-inner">
-				<div class="site-card-grid site-card-grid--cols-3">
+				<div class="site-card-grid site-card-grid--cols-3" data-reveal-stagger>
 					{
 						programs.map((program) => (
 							<article class="site-card">
@@ -44,14 +44,16 @@ import CampGallery from '../components/site/CampGallery.astro';
 					title="营地现场"
 					intro="暑期与冬季读书营中，领读人与共读人在各地展开圆桌共学。"
 				/>
-				<CampGallery photos={campPhotos} />
+				<div data-reveal="fade">
+					<CampGallery photos={campPhotos} />
+				</div>
 			</div>
 		</section>
 
 		<section class="site-section">
 			<div class="site-page-inner">
 				<SectionHead eyebrow="Timeline" title="知合营地工作时间线" />
-				<div class="timeline-road">
+				<div class="timeline-road" data-reveal="fade">
 					<svg class="timeline-road__svg" viewBox="0 0 120 720" preserveAspectRatio="none" aria-hidden="true">
 						<path
 							class="timeline-road__track"
@@ -86,7 +88,7 @@ import CampGallery from '../components/site/CampGallery.astro';
 					title="夏季读书营课程案例"
 					intro="以下为往期领读人设计的原创圆桌课程示例。"
 				/>
-				<div class="site-card-grid site-card-grid--cols-3">
+				<div class="site-card-grid site-card-grid--cols-3" data-reveal-stagger>
 					{
 						sampleCourses.map((course) => (
 							<article class="site-card">

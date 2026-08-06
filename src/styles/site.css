@@ -1,6 +1,7 @@
 /* 知合 Nexus 官网 */
 @import './nexus-splash.css';
 @import './transitions.css';
+@import './reveal.css';
 
 @font-face {
 	font-family: 'FZ Qing Ke Ben Yue Song';

@@ -8,8 +8,18 @@ interface Props {
 const { eyebrow, title, intro } = Astro.props;
 ---
 
-<div class="site-section__lead">
-	<p class="site-section__eyebrow">{eyebrow}</p>
-	<h2 class="site-section__title">{title}</h2>
-	{intro && <p class="site-section__intro">{intro}</p>}
+<div class="site-section__lead" data-reveal-block>
+	<p class="site-section__eyebrow" data-reveal-item>
+		<span class="reveal-line__inner">{eyebrow}</span>
+	</p>
+	<h2 class="site-section__title" data-reveal-item>
+		<span class="reveal-line__inner">{title}</span>
+	</h2>
+	{
+		intro && (
+			<p class="site-section__intro" data-reveal-item>
+				<span class="reveal-line__inner">{intro}</span>
+			</p>
+		)
+	}
 </div>

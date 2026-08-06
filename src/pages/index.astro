@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import HomeHeroMotto from '../components/HomeHeroMotto.astro';
 import HomeHeroTitle from '../components/HomeHeroTitle.astro';
 import CampGallery from '../components/site/CampGallery.astro';
+import SectionHead from '../components/site/SectionHead.astro';
 import {
 	site,
 	programs,
@@ -62,15 +63,13 @@ import {
 	<div class="site-docs">
 		<section class="site-section">
 			<div class="site-page-inner">
-				<div class="site-section__lead">
-					<p class="site-section__eyebrow">Programs</p>
-					<h2 class="site-section__title">知合主要项目</h2>
-					<p class="site-section__intro">
-						以圆桌·博雅为方法，在暑期、冬季与线上持续展开共学实践。
-					</p>
-				</div>
+				<SectionHead
+					eyebrow="Programs"
+					title="知合主要项目"
+					intro="以圆桌·博雅为方法，在暑期、冬季与线上持续展开共学实践。"
+				/>
 
-				<div class="site-card-grid site-card-grid--cols-3">
+				<div class="site-card-grid site-card-grid--cols-3" data-reveal-stagger>
 					{
 						programs.map((item) => (
 							<article class="site-card">
@@ -81,8 +80,10 @@ import {
 						))
 					}
 				</div>
-				<CampGallery photos={campPhotos} compact />
-				<div class="nexus-hero__actions site-section__actions">
+				<div data-reveal="fade">
+					<CampGallery photos={campPhotos} compact />
+				</div>
+				<div class="nexus-hero__actions site-section__actions" data-reveal="fade">
 					<a class="nexus-hero__cta" href="/programs/">项目详情与时间线</a>
 				</div>
 			</div>
@@ -90,28 +91,22 @@ import {
 
 		<section class="site-section site-section--paper">
 			<div class="site-page-inner">
-				<div class="site-section__lead">
-					<p class="site-section__eyebrow">Cultural Plain</p>
-					<h2 class="site-section__title">落点：文化平原</h2>
-					<p class="site-section__intro">{culturalPlain.definition}</p>
-				</div>
-				<div class="location-tags">
+				<SectionHead eyebrow="Cultural Plain" title="落点：文化平原" intro={culturalPlain.definition} />
+				<div class="location-tags" data-reveal-stagger>
 					{campLocations.map((city) => <span class="location-tag">{city}</span>)}
 				</div>
-				<p class="location-note">2024 年以来的知合营地点</p>
+				<p class="location-note" data-reveal="fade">2024 年以来的知合营地点</p>
 			</div>
 		</section>
 
 		<section class="site-section">
 			<div class="site-page-inner">
-				<div class="site-section__lead">
-					<p class="site-section__eyebrow">Voices</p>
-					<h2 class="site-section__title">共读人反馈</h2>
-					<p class="site-section__intro">
-						每年，我们读书营的反馈都超出了预期，这也印证了我们的定位是准确的。
-					</p>
-				</div>
-				<div class="quote-grid">
+				<SectionHead
+					eyebrow="Voices"
+					title="共读人反馈"
+					intro="每年，我们读书营的反馈都超出了预期，这也印证了我们的定位是准确的。"
+				/>
+				<div class="quote-grid" data-reveal-stagger>
 					{
 						testimonials.map((item) => (
 							<blockquote class="quote-card">
@@ -128,11 +123,8 @@ import {
 
 		<section class="site-section site-section--paper">
 			<div class="site-page-inner">
-				<div class="site-section__lead">
-					<p class="site-section__eyebrow">Strength</p>
-					<h2 class="site-section__title">独特优势</h2>
-				</div>
-				<div class="site-card-grid site-card-grid--cols-3">
+				<SectionHead eyebrow="Strength" title="独特优势" />
+				<div class="site-card-grid site-card-grid--cols-3" data-reveal-stagger>
 					{
 						advantages.map((item) => (
 							<article class="site-card">
@@ -142,15 +134,19 @@ import {
 						))
 					}
 				</div>
-				<div class="nexus-hero__actions site-section__actions">
+				<div class="nexus-hero__actions site-section__actions" data-reveal="fade">
 					<a class="nexus-hero__cta" href="/join/">参与我们</a>
 				</div>
 			</div>
 		</section>
 
 		<section class="site-closing">
-			<p class="site-closing__text">共赴平原</p>
-			<div class="site-closing__contact">
+			<div data-reveal-block>
+				<p class="site-closing__text" data-reveal-item>
+					<span class="reveal-line__inner">共赴平原</span>
+				</p>
+			</div>
+			<div class="site-closing__contact" data-reveal-stagger>
 				<div class="site-closing__item">
 					<p class="site-closing__label">咨询邮箱</p>
 					<a class="site-closing__link" href={`mailto:${contact.email}`}>{contact.email}</a>

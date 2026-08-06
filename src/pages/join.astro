@@ -17,7 +17,7 @@ import PartnerLogos from '../components/site/PartnerLogos.astro';
 		<section class="site-section">
 			<div class="site-page-inner">
 				<SectionHead eyebrow="Paths" title="参与方式" />
-				<div class="site-card-grid site-card-grid--cols-3">
+				<div class="site-card-grid site-card-grid--cols-3" data-reveal-stagger>
 					{
 						joinPaths.map((item) => (
 							<article class="site-card">
@@ -52,7 +52,7 @@ import PartnerLogos from '../components/site/PartnerLogos.astro';
 		<section class="site-section site-section--paper">
 			<div class="site-page-inner">
 				<SectionHead eyebrow="Why Nexus" title="独特优势" />
-				<div class="site-card-grid site-card-grid--cols-3">
+				<div class="site-card-grid site-card-grid--cols-3" data-reveal-stagger>
 					{
 						advantages.map((item) => (
 							<article class="site-card">
@@ -63,7 +63,7 @@ import PartnerLogos from '../components/site/PartnerLogos.astro';
 					}
 				</div>
 
-				<div class="stat-row stat-row--cols-3">
+				<div class="stat-row stat-row--cols-3" data-reveal-stagger>
 					<div class="stat-row__item">
 						<p class="stat-row__value">60+</p>
 						<p class="stat-row__label">2025 暑期申请数</p>
@@ -83,8 +83,10 @@ import PartnerLogos from '../components/site/PartnerLogos.astro';
 		<section class="site-section">
 			<div class="site-page-inner">
 				<SectionHead eyebrow="Partners" title="合作案例" intro={partners.note} />
-				<PartnerLogos />
-				<div class="site-card-grid site-card-grid--cols-2">
+				<div data-reveal="fade">
+					<PartnerLogos />
+				</div>
+				<div class="site-card-grid site-card-grid--cols-2" data-reveal-stagger>
 					{
 						partners.cases.map((item) => (
 							<article class="site-card partner-card">
@@ -98,7 +100,7 @@ import PartnerLogos from '../components/site/PartnerLogos.astro';
 					}
 				</div>
 
-				<div class="nexus-hero__actions site-section__actions">
+				<div class="nexus-hero__actions site-section__actions" data-reveal="fade">
 					<a class="nexus-hero__cta" href="/handbook/">阅读领读人手册</a>
 					<a class="nexus-hero__cta nexus-hero__cta--ghost" href="/programs/">了解读书营</a>
 				</div>
