@@ -1,50 +1,61 @@
 ---
-import { nav } from '../../data/site';
-import { LOGO_PATH, LOGO_ALT } from '../../consts';
+import { getSiteData } from '../../data/site';
+import { getUi } from '../../i18n/ui';
+import { getLogoAlt, localizePath, type Locale } from '../../i18n/utils';
+import { LOGO_PATH } from '../../consts';
+import LocaleSwitcher from './LocaleSwitcher.astro';
 
 interface Props {
 	currentPath: string;
 	splash?: boolean;
+	locale: Locale;
 }
 
-const { currentPath, splash = false } = Astro.props;
+const { currentPath, splash = false, locale } = Astro.props;
+const { nav } = getSiteData(locale);
+const t = getUi(locale);
 
 function isActive(href: string) {
-	if (href === '/') return currentPath === '/';
+	const home = localizePath('/', locale);
+	if (href === home) return currentPath === home || currentPath === '/';
 	return currentPath.startsWith(href);
 }
 ---
 
 <header class:list={['site-header', splash && 'site-header--splash']} transition:persist="site-header">
 	<div class="site-page-inner site-header__inner">
-		<a href="/" class="site-brand">
-			<img src={LOGO_PATH} alt={LOGO_ALT} class="site-brand__logo" />
+		<a href={localizePath('/', locale)} class="site-brand">
+			<img src={LOGO_PATH} alt={getLogoAlt(locale)} class="site-brand__logo" />
 		</a>
 
-		<button
-			class="site-nav-toggle"
-			type="button"
-			aria-label="打开导航菜单"
-			aria-expanded="false"
-			aria-controls="site-nav"
-		>
-			<span class="site-nav-toggle__bars" aria-hidden="true">
-				<span class="site-nav-toggle__bar"></span>
-				<span class="site-nav-toggle__bar"></span>
-				<span class="site-nav-toggle__bar"></span>
-			</span>
-		</button>
+		<div class="site-header__actions">
+			<LocaleSwitcher locale={locale} currentPath={currentPath} />
 
-		<nav class="site-nav" id="site-nav" aria-label="主导航">
+			<button
+				class="site-nav-toggle"
+				type="button"
+				aria-label={t.nav.openMenu}
+				aria-expanded="false"
+				aria-controls="site-nav"
+			>
+				<span class="site-nav-toggle__bars" aria-hidden="true">
+					<span class="site-nav-toggle__bar"></span>
+					<span class="site-nav-toggle__bar"></span>
+					<span class="site-nav-toggle__bar"></span>
+				</span>
+			</button>
+		</div>
+
+		<nav class="site-nav" id="site-nav" aria-label={t.nav.mainNav}>
 			{
 				nav.map((item) => (
 					<a
-						href={item.href}
+						href={localizePath(item.href, locale)}
 						class:list={[
 							'site-nav__link',
 							item.href === '/handbook/' && 'site-nav__link--cta',
 						]}
-						aria-current={isActive(item.href) ? 'page' : undefined}
+						aria-current={isActive(localizePath(item.href, locale)) ? 'page' : undefined}
 					>
 						{item.label}
 					</a>
@@ -54,3 +65,26 @@ function isActive(href: string) {
 	</div>
 	<div class="site-nav-backdrop" aria-hidden="true"></div>
 </header>
+
+<style>
+	.site-header__actions {
+		display: flex;
+		align-items: center;
+		gap: 0.65rem;
+		margin-left: auto;
+	}
+
+	@media (max-width: 860px) {
+		.site-header__inner {
+			flex-wrap: wrap;
+		}
+
+		.site-header__actions {
+			order: 2;
+		}
+
+		.site-nav {
+			order: 3;
+		}
+	}
+</style>

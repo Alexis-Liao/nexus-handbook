@@ -1,17 +1,17 @@
 ---
-import MemoryArticlePage from '../../../views/MemoryArticlePage.astro';
-import { getAllCampMemorySlugs, getCampMemory } from '../../../data/campMemories';
+import MemoryArticlePage from '../../../../views/MemoryArticlePage.astro';
+import { getAllCampMemorySlugs, getCampMemory } from '../../../../data/campMemories';
 
 export function getStaticPaths() {
 	return getAllCampMemorySlugs().map((slug) => ({ params: { slug } }));
 }
 
 const { slug } = Astro.params;
-const locale = 'zh';
+const locale = 'en';
 const article = getCampMemory(slug!, locale);
 
 if (!article) {
-	return Astro.redirect('/programs/');
+	return Astro.redirect('/en/programs/');
 }
 ---
 

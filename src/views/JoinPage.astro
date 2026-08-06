@@ -1,0 +1,127 @@
+---
+import type { Locale } from '../i18n/locales';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/site/PageHero.astro';
+import SectionHead from '../components/site/SectionHead.astro';
+import PartnerLogos from '../components/site/PartnerLogos.astro';
+import { getSiteData } from '../data/site';
+import { getUi } from '../i18n/ui';
+import { localizePath } from '../i18n/utils';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const { advantages, joinPaths, partners } = getSiteData(locale);
+const t = getUi(locale);
+---
+
+<BaseLayout
+	title={t.meta.joinTitle}
+	description={t.meta.joinDescription}
+	currentPath={localizePath('/join/', locale)}
+	locale={locale}
+>
+	<PageHero eyebrow="Join Us" title={t.join.heroTitle} lede={t.join.heroLede} />
+
+	<div class="site-docs">
+		<section class="site-section">
+			<div class="site-page-inner">
+				<SectionHead eyebrow={t.join.pathsEyebrow} title={t.join.pathsTitle} />
+				<div class="site-card-grid site-card-grid--cols-3" data-reveal-stagger>
+					{
+						joinPaths.map((item) => (
+							<article class="site-card">
+								<h3 class="site-card__title">{item.title}</h3>
+								<p class="site-card__text">{item.description}</p>
+								<p class="site-card__highlight">
+									{'href' in item.highlight && item.highlight.href ? (
+										<a
+											href={
+												item.highlight.href.startsWith('http')
+													? item.highlight.href
+													: localizePath(item.highlight.href, locale)
+											}
+											{...(item.highlight.href.startsWith('http')
+												? { target: '_blank', rel: 'noopener noreferrer' }
+												: {})}
+										>
+											{item.highlight.text}
+											{item.highlight.href.startsWith('http') ? t.home.chineseArticleNote : ''}
+										</a>
+									) : 'email' in item.highlight && item.highlight.email ? (
+										<>
+											{item.highlight.text}
+											<a href={`mailto:${item.highlight.email}`}>{item.highlight.email}</a>
+										</>
+									) : (
+										item.highlight.text
+									)}
+								</p>
+							</article>
+						))
+					}
+				</div>
+			</div>
+		</section>
+
+		<section class="site-section site-section--paper">
+			<div class="site-page-inner">
+				<SectionHead eyebrow={t.join.whyEyebrow} title={t.join.whyTitle} />
+				<div class="site-card-grid site-card-grid--cols-3" data-reveal-stagger>
+					{
+						advantages.map((item) => (
+							<article class="site-card">
+								<h3 class="site-card__title">{item.title}</h3>
+								<p class="site-card__text">{item.text}</p>
+							</article>
+						))
+					}
+				</div>
+
+				<div class="stat-row stat-row--cols-3" data-reveal-stagger>
+					<div class="stat-row__item">
+						<p class="stat-row__value" data-count="60+">60+</p>
+						<p class="stat-row__label">{t.join.statApplications}</p>
+					</div>
+					<div class="stat-row__item">
+						<p class="stat-row__value" data-count="≈50%">≈50%</p>
+						<p class="stat-row__label">{t.join.statAcceptance}</p>
+					</div>
+					<div class="stat-row__item">
+						<p class="stat-row__value" data-count="15h">15h</p>
+						<p class="stat-row__label">{t.join.statTraining}</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="site-section">
+			<div class="site-page-inner">
+				<SectionHead eyebrow={t.join.partnersEyebrow} title={t.join.partnersTitle} intro={partners.note} />
+				<div data-reveal="fade">
+					<PartnerLogos />
+				</div>
+				<div class="site-card-grid site-card-grid--cols-2" data-reveal-stagger>
+					{
+						partners.cases.map((item) => (
+							<article class="site-card partner-card">
+								<div class="partner-card__head">
+									<h3 class="partner-card__title">{item.title}</h3>
+									<span class="partner-card__date">{item.date}</span>
+								</div>
+								<p class="partner-card__text">{item.description}</p>
+							</article>
+						))
+					}
+				</div>
+
+				<div class="nexus-hero__actions site-section__actions" data-reveal="fade">
+					<a class="nexus-hero__cta" href="/handbook/">{t.join.ctaHandbook}</a>
+					<a class="nexus-hero__cta nexus-hero__cta--ghost" href={localizePath('/programs/', locale)}>{t.join.ctaPrograms}</a>
+				</div>
+			</div>
+		</section>
+	</div>
+</BaseLayout>

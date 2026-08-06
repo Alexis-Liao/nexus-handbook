@@ -4,9 +4,10 @@ import MemoryFigure from './MemoryFigure.astro';
 
 interface Props {
 	review: MemoryReview;
+	placeholder?: string;
 }
 
-const { review } = Astro.props;
+const { review, placeholder } = Astro.props;
 ---
 
 <article class="memory-review" data-reveal-item>
@@ -20,7 +21,7 @@ const { review } = Astro.props;
 			</p>
 		)}
 	</header>
-	{review.image && <MemoryFigure image={review.image} />}
+	{review.image && <MemoryFigure image={review.image} placeholder={placeholder} />}
 	<div class="memory-review__body">
 		{review.paragraphs.map((paragraph) => (
 			<p>{paragraph}</p>

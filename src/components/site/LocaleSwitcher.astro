@@ -1,0 +1,60 @@
+---
+import type { Locale } from '../../i18n/locales';
+import { getAlternateUrls, localizePath } from '../../i18n/utils';
+import { localeLabels } from '../../i18n/locales';
+
+interface Props {
+	locale: Locale;
+	currentPath: string;
+}
+
+const { locale, currentPath } = Astro.props;
+const alternates = getAlternateUrls(currentPath);
+const otherLocale: Locale = locale === 'zh' ? 'en' : 'zh';
+---
+
+<div class="locale-switcher">
+	<a
+		class="locale-switcher__link"
+		href={alternates[otherLocale]}
+		lang={otherLocale === 'zh' ? 'zh-CN' : 'en'}
+		hreflang={otherLocale === 'zh' ? 'zh-CN' : 'en'}
+		aria-label={`${localeLabels[otherLocale]}`}
+	>
+		{localeLabels[otherLocale]}
+	</a>
+</div>
+
+<style>
+	.locale-switcher {
+		display: flex;
+		align-items: center;
+	}
+
+	.locale-switcher__link {
+		padding: 0.45rem 0.75rem;
+		border-radius: 0.35rem;
+		font-size: 0.82rem;
+		font-weight: 600;
+		letter-spacing: 0.06em;
+		text-decoration: none;
+		color: var(--nexus-ink-soft);
+		border: 1px solid var(--nexus-blue-mist);
+		background: rgba(255, 255, 255, 0.65);
+		transition:
+			color 200ms ease,
+			border-color 200ms ease,
+			background 200ms ease;
+	}
+
+	.locale-switcher__link:hover {
+		color: var(--nexus-blue);
+		border-color: var(--nexus-blue-pale);
+		background: var(--nexus-white);
+	}
+
+	.site-header--splash .locale-switcher__link {
+		color: var(--nexus-blue);
+		background: rgba(255, 255, 255, 0.72);
+	}
+</style>

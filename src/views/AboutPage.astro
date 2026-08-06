@@ -1,0 +1,84 @@
+---
+import type { Locale } from '../i18n/locales';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/site/PageHero.astro';
+import SectionHead from '../components/site/SectionHead.astro';
+import { getSiteData } from '../data/site';
+import { getUi } from '../i18n/ui';
+import { localizePath } from '../i18n/utils';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const { site, culturalPlain, campLocations, testimonials } = getSiteData(locale);
+const t = getUi(locale);
+---
+
+<BaseLayout
+	title={t.meta.aboutTitle}
+	description={t.meta.aboutDescription}
+	currentPath={localizePath('/about/', locale)}
+	locale={locale}
+>
+	<PageHero eyebrow="About Nexus" title={t.about.heroTitle} lede={t.about.heroLede} />
+
+	<div class="site-docs">
+		<section class="site-section site-section--after-hero">
+			<div class="site-page-inner">
+				<div class="site-card-grid site-card-grid--cols-2">
+					<article class="site-card">
+						<h2 class="site-card__title">{t.about.mission}</h2>
+						<p class="site-card__text">{site.description}</p>
+					</article>
+					<article class="site-card">
+						<h2 class="site-card__title">{t.about.vision}</h2>
+						<p class="site-card__text">{site.vision}</p>
+					</article>
+				</div>
+			</div>
+		</section>
+
+		<section class="site-section site-section--paper">
+			<div class="site-page-inner">
+				<div class="site-section__lead">
+					<p class="site-section__eyebrow">Cultural Plain</p>
+					<h2 class="site-section__title">{culturalPlain.title}</h2>
+				</div>
+				<div class="prose">
+					<p>{culturalPlain.definition}</p>
+					<p>{culturalPlain.context}</p>
+					<p>{culturalPlain.scope}</p>
+				</div>
+			</div>
+		</section>
+
+		<section class="site-section">
+			<div class="site-page-inner">
+				<SectionHead eyebrow={t.about.locationsEyebrow} title={t.about.locationsTitle} intro={t.about.locationsIntro} />
+				<div class="location-tags">
+					{campLocations.map((city) => <span class="location-tag">{city}</span>)}
+				</div>
+			</div>
+		</section>
+
+		<section class="site-section site-section--paper">
+			<div class="site-page-inner">
+				<SectionHead eyebrow={t.about.feedbackEyebrow} title={t.about.feedbackTitle} />
+				<div class="quote-grid">
+					{
+						testimonials.map((item) => (
+							<blockquote class="quote-card">
+								<p class="quote-card__text">「{item.quote}」</p>
+								<footer class="quote-card__author">
+									—— {item.author}（{item.role}）
+								</footer>
+							</blockquote>
+						))
+					}
+				</div>
+			</div>
+		</section>
+	</div>
+</BaseLayout>

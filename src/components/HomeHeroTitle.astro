@@ -1,8 +1,16 @@
 ---
-/** 首页主标题 — 编辑风缓慢淡入 */
+import type { Locale } from '../../i18n/locales';
+
+interface Props {
+	locale: Locale;
+	line1: string;
+	line2: string;
+}
+
+const { line1, line2 } = Astro.props;
 ---
 
 <h1 class="nexus-hero__title">
-	<span class="nexus-hero__title-line">构建文化平原</span>
-	<span class="nexus-hero__title-line">的青年社群</span>
+	<span class="nexus-hero__title-line">{line1}</span>
+	<span class="nexus-hero__title-line">{line2}</span>
 </h1>

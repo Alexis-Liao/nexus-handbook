@@ -1,6 +1,16 @@
 ---
-import { contact, footerColumns, site, socialLinks } from '../../data/site';
-import { LOGO_PATH, LOGO_ALT } from '../../consts';
+import { getSiteData } from '../../data/site';
+import { getUi } from '../../i18n/ui';
+import { getLogoAlt, localizePath, type Locale } from '../../i18n/utils';
+import { LOGO_PATH } from '../../consts';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const { contact, footerColumns, site, socialLinks } = getSiteData(locale);
+const t = getUi(locale);
 
 const wechat = socialLinks.find((item) => item.id === 'wechat');
 const xiaohongshu = socialLinks.find((item) => item.id === 'xiaohongshu');
@@ -10,8 +20,8 @@ const xiaohongshu = socialLinks.find((item) => item.id === 'xiaohongshu');
 	<div class="site-page-inner site-footer__inner">
 		<div class="site-footer__grid">
 			<div class="site-footer__brand">
-				<a class="site-footer__logo-link" href="/" aria-label="返回首页">
-					<img src={LOGO_PATH} alt={LOGO_ALT} class="site-footer__logo" />
+				<a class="site-footer__logo-link" href={localizePath('/', locale)} aria-label={t.footer.backHome}>
+					<img src={LOGO_PATH} alt={getLogoAlt(locale)} class="site-footer__logo" />
 				</a>
 
 				<div class="site-footer__media">
@@ -20,12 +30,12 @@ const xiaohongshu = socialLinks.find((item) => item.id === 'xiaohongshu');
 							<figure class="site-footer__media-card site-footer__qrcode">
 								<img
 									src={wechat.qrcode}
-									alt={`${wechat.label}二维码`}
+									alt={`${wechat.label}`}
 									width="96"
 									height="96"
 									loading="lazy"
 								/>
-								<figcaption>扫码关注公众号</figcaption>
+								<figcaption>{t.footer.scanWechat}</figcaption>
 							</figure>
 						)
 					}
@@ -33,7 +43,7 @@ const xiaohongshu = socialLinks.find((item) => item.id === 'xiaohongshu');
 
 				<div class="site-footer__contact">
 					<p>
-						<span class="site-footer__contact-label">电子邮箱：</span>
+						<span class="site-footer__contact-label">{t.footer.emailLabel}</span>
 						<a href={`mailto:${contact.email}`}>{contact.email}</a>
 					</p>
 					{
@@ -64,7 +74,7 @@ const xiaohongshu = socialLinks.find((item) => item.id === 'xiaohongshu');
 								column.links.map((link) => (
 									<li>
 										<a
-											href={link.href}
+											href={localizePath(link.href, locale)}
 											{'external' in link && link.external
 												? { target: '_blank', rel: 'noopener noreferrer' }
 												: {}}
@@ -81,7 +91,7 @@ const xiaohongshu = socialLinks.find((item) => item.id === 'xiaohongshu');
 		</div>
 
 		<p class="site-footer__meta">
-			© {new Date().getFullYear()} {site.name} · 非营利性创新教育项目 · 创立于 {site.yearFounded}
+			© {new Date().getFullYear()} {site.name} · {t.footer.nonprofit} · {t.footer.founded} {site.yearFounded}
 		</p>
 	</div>
 </footer>

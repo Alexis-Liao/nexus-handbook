@@ -1,7 +1,19 @@
 ---
-import { site } from '../data/site';
+import type { Locale } from '../../i18n/locales';
+import { getSiteData } from '../data/site';
 
-const [mottoRight, mottoLeft] = site.motto.split('，');
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const { motto } = getSiteData(locale).site;
+
+const [mottoRight, mottoLeft] = motto.includes('，')
+	? motto.split('，')
+	: motto.includes('|')
+		? motto.split('|')
+		: [motto, ''];
 ---
 
 <div class="nexus-hero__canvas nexus-hero__canvas--motto" data-parallax="0.2" aria-hidden="true">
@@ -10,3 +22,20 @@ const [mottoRight, mottoLeft] = site.motto.split('，');
 		<p class="nexus-hero__motto-col">{mottoLeft}</p>
 	</div>
 </div>
+
+<style>
+	.nexus-hero__motto-col {
+		font-size: clamp(2rem, 6vw, 4.5rem);
+		letter-spacing: 0.08em;
+	}
+
+	:global([lang='en']) .nexus-hero__motto-col {
+		writing-mode: horizontal-tb;
+		text-orientation: mixed;
+		font-family: var(--nexus-font-body);
+		font-size: clamp(0.95rem, 2.5vw, 1.15rem);
+		line-height: 1.5;
+		max-width: 12rem;
+		color: rgba(24, 64, 136, 0.22);
+	}
+</style>

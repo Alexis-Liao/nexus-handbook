@@ -1,0 +1,63 @@
+---
+import type { Locale } from '../i18n/locales';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/site/PageHero.astro';
+import SectionHead from '../components/site/SectionHead.astro';
+import { getSiteData } from '../data/site';
+import { getUi } from '../i18n/ui';
+import { localizePath } from '../i18n/utils';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const { liberalEducation, roundtable } = getSiteData(locale);
+const t = getUi(locale);
+---
+
+<BaseLayout
+	title={t.meta.philosophyTitle}
+	description={t.meta.philosophyDescription}
+	currentPath={localizePath('/philosophy/', locale)}
+	locale={locale}
+>
+	<PageHero eyebrow="Philosophy" title={t.philosophy.heroTitle} lede={t.philosophy.heroLede} />
+
+	<div class="site-docs">
+		<section class="site-section">
+			<div class="site-page-inner">
+				<SectionHead eyebrow={t.philosophy.liberalEyebrow} title={t.philosophy.liberalTitle} intro={liberalEducation.intro} />
+
+				<div class="site-card-grid site-card-grid--cols-3">
+					{
+						liberalEducation.pillars.map((item) => (
+							<article class="site-card">
+								<h3 class="site-card__title">{item.title}</h3>
+								<p class="site-card__text">{item.text}</p>
+							</article>
+						))
+					}
+				</div>
+			</div>
+		</section>
+
+		<section class="site-section site-section--paper">
+			<div class="site-page-inner">
+				<SectionHead eyebrow={t.philosophy.roundtableEyebrow} title={t.philosophy.roundtableTitle} intro={roundtable.philosophy} />
+
+				<div class="site-card-grid site-card-grid--cols-2">
+					{
+						roundtable.features.map((item) => (
+							<article class="site-card">
+								<p class="site-card__text">{item}</p>
+							</article>
+						))
+					}
+				</div>
+
+				<p class="site-section__intro site-section__intro--spaced">{roundtable.practice}</p>
+			</div>
+		</section>
+	</div>
+</BaseLayout>

@@ -1,0 +1,328 @@
+---
+import type { Locale } from '../i18n/locales';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/site/PageHero.astro';
+import SectionHead from '../components/site/SectionHead.astro';
+import CampGallery from '../components/site/CampGallery.astro';
+import { getSiteData } from '../data/site';
+import { getUi } from '../i18n/ui';
+import { localizePath } from '../i18n/utils';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const { campPhotos, facilitatorRecruitment, site } = getSiteData(locale);
+const t = getUi(locale);
+
+const { application, roles, process, sampleSyllabi, wechatArticle, assistantNote } =
+	facilitatorRecruitment;
+---
+
+<BaseLayout
+	title={t.meta.facilitatorTitle}
+	description={t.meta.facilitatorDescription}
+	currentPath={localizePath('/join/facilitator/', locale)}
+	locale={locale}
+>
+	<PageHero eyebrow="Facilitator Recruitment" title={t.facilitator.heroTitle} lede={t.facilitator.heroLede} />
+
+	<div class="site-docs">
+		<section class="site-section">
+			<div class="site-page-inner site-page-inner--wide">
+				<div class="recruit-banner">
+					<p class="recruit-banner__text">
+						{t.facilitator.deadlinePrefix}<strong>{application.deadline}</strong>
+					</p>
+					<div class="nexus-hero__actions site-section__actions recruit-banner__actions">
+						<a
+							class="nexus-hero__cta"
+							href={wechatArticle.href}
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							{wechatArticle.label}
+						</a>
+						<a class="nexus-hero__cta nexus-hero__cta--ghost" href="/handbook/">
+							{t.facilitator.ctaHandbook}
+						</a>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="site-section site-section--paper">
+			<div class="site-page-inner">
+				<SectionHead eyebrow="01" title={t.facilitator.section01} />
+				<div class="site-card recruit-info">
+					<dl class="recruit-info__list">
+						<div class="recruit-info__row">
+							<dt>{t.facilitator.campInfo}</dt>
+							<dd>
+								<ul class="feature-list">
+									{
+										application.camps.map((camp) => (
+											<li>
+												{camp.location}（{camp.dates}）
+											</li>
+										))
+									}
+								</ul>
+							</dd>
+						</div>
+						<div class="recruit-info__row">
+							<dt>{t.facilitator.qualification}</dt>
+							<dd>{application.qualification}</dd>
+						</div>
+						<div class="recruit-info__row">
+							<dt>{t.facilitator.deadline}</dt>
+							<dd>{application.deadline}</dd>
+						</div>
+						<div class="recruit-info__row">
+							<dt>{t.facilitator.mode}</dt>
+							<dd>{application.mode}</dd>
+						</div>
+						<div class="recruit-info__row">
+							<dt>{t.facilitator.support}</dt>
+							<dd>{application.support}</dd>
+						</div>
+						<div class="recruit-info__row">
+							<dt>{t.facilitator.method}</dt>
+							<dd>
+								{application.method}
+								<a href={wechatArticle.href} target="_blank" rel="noopener noreferrer">
+									{t.facilitator.wechatApply}
+								</a>
+							</dd>
+						</div>
+					</dl>
+				</div>
+			</div>
+		</section>
+
+		<section class="site-section">
+			<div class="site-page-inner">
+				<SectionHead eyebrow="02" title={t.facilitator.section02} intro={t.facilitator.section02Intro} />
+				<p class="recruit-lede">{t.facilitator.section02Lede}</p>
+				<div class="site-card-grid site-card-grid--cols-3">
+					{
+						roles.map((role) => (
+							<article class="site-card">
+								<h3 class="site-card__title">{role.title}</h3>
+								<p class="site-card__text">{role.intro}</p>
+								{role.points.length > 0 && (
+									<ul class="feature-list">
+										{role.points.map((point) => (
+											<li>{point}</li>
+										))}
+									</ul>
+								)}
+							</article>
+						))
+					}
+				</div>
+			</div>
+		</section>
+
+		<section class="site-section site-section--paper">
+			<div class="site-page-inner">
+				<SectionHead eyebrow="03" title={t.facilitator.section03} intro={t.facilitator.section03Intro} />
+				<CampGallery photos={campPhotos} />
+			</div>
+		</section>
+
+		<section class="site-section">
+			<div class="site-page-inner">
+				<SectionHead eyebrow="04" title={t.facilitator.section04} />
+				<div class="recruit-process">
+					{
+						process.map((item, index) => (
+							<article class="site-card recruit-process__item">
+								<p class="recruit-process__step">
+									<span class="recruit-process__index">{String(index + 1).padStart(2, '0')}</span>
+									{item.step}
+								</p>
+								<p class="recruit-process__timing">{item.timing}</p>
+								<p class="site-card__text">{item.description}</p>
+								{item.points.length > 0 && (
+									<ul class="feature-list">
+										{item.points.map((point) => (
+											<li>{point}</li>
+										))}
+									</ul>
+								)}
+								{item.note && <p class="recruit-process__note">{item.note}</p>}
+							</article>
+						))
+					}
+				</div>
+
+				<div class="site-card recruit-resource">
+					<h3 class="site-card__title">{sampleSyllabi.label}</h3>
+					<p class="site-card__text">
+						<a href={sampleSyllabi.href} target="_blank" rel="noopener noreferrer">
+							{t.facilitator.baiduDownload}
+						</a>
+						· {t.facilitator.passwordPrefix}{sampleSyllabi.password}
+					</p>
+				</div>
+
+				<div class="site-card recruit-resource">
+					<h3 class="site-card__title">{t.facilitator.consultTitle}</h3>
+					<p class="site-card__text">{assistantNote}</p>
+				</div>
+
+				<div class="dual-panel recruit-mission">
+					<div class="dual-panel__item">
+						<p class="dual-panel__label">{t.facilitator.mission}</p>
+						<p>{site.description}</p>
+					</div>
+					<div class="dual-panel__item">
+						<p class="dual-panel__label">{t.facilitator.vision}</p>
+						<p>{site.vision}</p>
+					</div>
+				</div>
+
+				<div class="nexus-hero__actions site-section__actions">
+					<a
+						class="nexus-hero__cta"
+						href={wechatArticle.href}
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						{wechatArticle.label}
+					</a>
+					<a class="nexus-hero__cta nexus-hero__cta--ghost" href={localizePath('/join/', locale)}>{t.facilitator.backToJoin}</a>
+				</div>
+			</div>
+		</section>
+	</div>
+</BaseLayout>
+
+<style>
+	.site-page-inner--wide {
+		max-width: var(--content-wide);
+	}
+
+	.recruit-banner {
+		display: grid;
+		gap: 1.25rem;
+		padding: 1.5rem 1.75rem;
+		border: 1px solid var(--nexus-blue-mist);
+		border-radius: 0.5rem;
+		background: rgba(255, 255, 255, 0.72);
+	}
+
+	.recruit-banner__text {
+		margin: 0;
+		font-size: 1rem;
+		color: var(--nexus-ink-soft);
+		line-height: 1.7;
+	}
+
+	.recruit-banner__actions {
+		margin-top: 0;
+	}
+
+	.recruit-lede {
+		max-width: var(--content-wide);
+		margin: -0.5rem 0 1.75rem;
+		color: var(--nexus-ink-soft);
+		line-height: var(--line-prose);
+	}
+
+	.recruit-info__list {
+		margin: 0;
+		display: grid;
+		gap: 1.25rem;
+	}
+
+	.recruit-info__row {
+		display: grid;
+		grid-template-columns: 6.5rem 1fr;
+		gap: 0.75rem 1.25rem;
+	}
+
+	.recruit-info__row dt {
+		margin: 0;
+		font-weight: 700;
+		color: var(--nexus-blue);
+		font-size: 0.92rem;
+	}
+
+	.recruit-info__row dd {
+		margin: 0;
+		color: var(--nexus-ink-soft);
+		line-height: 1.75;
+	}
+
+	.recruit-info__row dd .feature-list {
+		margin-top: 0;
+	}
+
+	.recruit-process {
+		display: grid;
+		gap: 1.25rem;
+	}
+
+	.recruit-process__item {
+		display: grid;
+		gap: 0.65rem;
+	}
+
+	.recruit-process__step {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		margin: 0;
+		font-family: var(--nexus-font-display);
+		font-size: 1.15rem;
+		color: var(--nexus-blue);
+		letter-spacing: 0.04em;
+	}
+
+	.recruit-process__index {
+		font-family: var(--nexus-font-body);
+		font-size: 0.78rem;
+		font-weight: 700;
+		letter-spacing: 0.12em;
+		color: #718096;
+	}
+
+	.recruit-process__timing {
+		margin: 0;
+		font-size: 0.88rem;
+		font-weight: 600;
+		color: var(--nexus-ink);
+	}
+
+	.recruit-process__note {
+		margin: 0.25rem 0 0;
+		padding: 0.85rem 1rem;
+		border-left: 3px solid var(--nexus-blue-pale);
+		background: rgba(232, 237, 245, 0.45);
+		font-size: 0.9rem;
+		color: var(--nexus-ink-soft);
+		line-height: 1.7;
+	}
+
+	.recruit-resource {
+		margin-top: 1.25rem;
+	}
+
+	.recruit-mission {
+		margin-top: 1.75rem;
+	}
+
+	@media (max-width: 720px) {
+		.recruit-info__row {
+			grid-template-columns: 1fr;
+			gap: 0.35rem;
+		}
+
+		.recruit-banner {
+			padding: 1.25rem 1.15rem;
+		}
+	}
+</style>

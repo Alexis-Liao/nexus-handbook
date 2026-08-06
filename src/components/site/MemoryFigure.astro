@@ -3,9 +3,10 @@ import type { MemoryImage } from '../../data/campMemories/types';
 
 interface Props {
 	image: MemoryImage;
+	placeholder?: string;
 }
 
-const { image } = Astro.props;
+const { image, placeholder = '图片' } = Astro.props;
 ---
 
 <figure class="memory-figure">
@@ -16,7 +17,7 @@ const { image } = Astro.props;
 			</div>
 		) : (
 			<div class="memory-figure__placeholder" role="img" aria-label={image.alt}>
-				<span class="memory-figure__placeholder-label">图片</span>
+				<span class="memory-figure__placeholder-label">{placeholder}</span>
 			</div>
 		)
 	}

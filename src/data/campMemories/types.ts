@@ -64,3 +64,5 @@ export type CampMemoryListItem = {
 	date: string;
 	kind: 'review' | 'essay';
 };
+
+export type LocalizedCampMemoryArticle = { zh: CampMemoryArticle; en: CampMemoryArticle };

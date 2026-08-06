@@ -1,0 +1,169 @@
+---
+import type { Locale } from '../i18n/locales';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HomeHeroMotto from '../components/HomeHeroMotto.astro';
+import HomeHeroTitle from '../components/HomeHeroTitle.astro';
+import CampGallery from '../components/site/CampGallery.astro';
+import SectionHead from '../components/site/SectionHead.astro';
+import { getSiteData } from '../data/site';
+import { getUi } from '../i18n/ui';
+import { localizePath } from '../i18n/utils';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const {
+	site,
+	programs,
+	culturalPlain,
+	campLocations,
+	campPhotos,
+	testimonials,
+	advantages,
+	contact,
+} = getSiteData(locale);
+const t = getUi(locale);
+const currentPath = localizePath('/', locale);
+---
+
+<BaseLayout
+	title={site.name}
+	description={t.meta.homeDescription}
+	currentPath={currentPath}
+	splash
+	locale={locale}
+>
+	<script type="application/ld+json" set:html={JSON.stringify({
+		'@context': 'https://schema.org',
+		'@type': 'Organization',
+		name: '知合 NEXUS',
+		alternateName: ['知合Nexus', '知合 Nexus', 'Zhihe Nexus'],
+		url: 'https://zhihenexus.org',
+		logo: 'https://zhihenexus.org/images/nexus-logo.png',
+		description: site.description,
+		email: contact.email,
+		foundingDate: String(site.yearFounded),
+		slogan: site.motto.replace('|', ', '),
+	})} />
+	<section class="nexus-hero nexus-hero--site" data-hero-load aria-label={t.home.heroAria}>
+		<HomeHeroMotto locale={locale} />
+
+		<div class="nexus-hero__inner">
+			<div class="nexus-hero__content">
+				<HomeHeroTitle locale={locale} line1={t.home.heroTitleLine1} line2={t.home.heroTitleLine2} />
+
+				<div class="nexus-hero__mission-grid">
+					<div class="nexus-hero__mission-item">
+						<p class="nexus-hero__mission-label">{t.home.mission}</p>
+						<p class="nexus-hero__mission-text">{site.description}</p>
+					</div>
+					<div class="nexus-hero__mission-item">
+						<p class="nexus-hero__mission-label">{t.home.vision}</p>
+						<p class="nexus-hero__mission-text">{site.vision}</p>
+					</div>
+				</div>
+
+				<div class="nexus-hero__actions">
+					<a class="nexus-hero__cta" href={localizePath('/programs/', locale)}>{t.home.ctaPrograms}</a>
+					<a class="nexus-hero__cta nexus-hero__cta--ghost" href={localizePath('/philosophy/', locale)}>{t.home.ctaPhilosophy}</a>
+					<a class="nexus-hero__cta nexus-hero__cta--ghost" href="/handbook/">{t.home.ctaHandbook}</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<div class="site-docs">
+		<section class="site-section">
+			<div class="site-page-inner">
+				<SectionHead eyebrow={t.home.programsEyebrow} title={t.home.programsTitle} intro={t.home.programsIntro} />
+
+				<div class="site-card-grid site-card-grid--cols-3" data-reveal-stagger>
+					{
+						programs.map((item) => (
+							<article class="site-card">
+								<p class="site-card__tag">{item.tag}</p>
+								<h3 class="site-card__title">{item.title}</h3>
+								<p class="site-card__text">{item.description}</p>
+							</article>
+						))
+					}
+				</div>
+				<CampGallery photos={campPhotos} />
+				<div class="nexus-hero__actions site-section__actions" data-reveal="fade">
+					<a class="nexus-hero__cta" href={localizePath('/programs/', locale)}>{t.home.programsDetail}</a>
+				</div>
+			</div>
+		</section>
+
+		<section class="site-section site-section--paper">
+			<div class="site-page-inner">
+				<SectionHead eyebrow={t.home.culturalPlainEyebrow} title={t.home.culturalPlainTitle} intro={culturalPlain.definition} />
+				<div class="location-tags" data-reveal-stagger>
+					{campLocations.map((city) => <span class="location-tag">{city}</span>)}
+				</div>
+				<p class="location-note" data-reveal="fade">{t.home.locationNote}</p>
+			</div>
+		</section>
+
+		<section class="site-section">
+			<div class="site-page-inner">
+				<SectionHead eyebrow={t.home.voicesEyebrow} title={t.home.voicesTitle} intro={t.home.voicesIntro} />
+				<div class="quote-grid" data-reveal-stagger>
+					{
+						testimonials.map((item) => (
+							<blockquote class="quote-card">
+								<p class="quote-card__text">「{item.quote}」</p>
+								<footer class="quote-card__author">
+									—— {item.author}（{item.role}）
+								</footer>
+							</blockquote>
+						))
+					}
+				</div>
+			</div>
+		</section>
+
+		<section class="site-section site-section--paper">
+			<div class="site-page-inner">
+				<SectionHead eyebrow={t.home.strengthEyebrow} title={t.home.strengthTitle} />
+				<div class="site-card-grid site-card-grid--cols-3" data-reveal-stagger>
+					{
+						advantages.map((item) => (
+							<article class="site-card">
+								<h3 class="site-card__title">{item.title}</h3>
+								<p class="site-card__text">{item.text}</p>
+							</article>
+						))
+					}
+				</div>
+				<div class="nexus-hero__actions site-section__actions" data-reveal="fade">
+					<a class="nexus-hero__cta" href={localizePath('/join/', locale)}>{t.home.joinCta}</a>
+				</div>
+			</div>
+		</section>
+
+		<section class="site-closing">
+			<div data-reveal-block>
+				<p class="site-closing__text" data-reveal-item>{t.home.closingText}</p>
+			</div>
+			<div class="site-closing__contact" data-reveal-stagger>
+				<div class="site-closing__item">
+					<p class="site-closing__label">{t.home.closingEmail}</p>
+					<a class="site-closing__link" href={`mailto:${contact.email}`}>{contact.email}</a>
+				</div>
+				<div class="site-closing__item">
+					<p class="site-closing__label">{t.home.closingEvents}</p>
+					<a
+						class="site-closing__link"
+						href={contact.wechatArticle.href}
+						target="_blank"
+						rel="noopener noreferrer"
+						>{contact.wechatArticle.label}{t.home.chineseArticleNote}</a
+					>
+				</div>
+			</div>
+		</section>
+	</div>
+</BaseLayout>
