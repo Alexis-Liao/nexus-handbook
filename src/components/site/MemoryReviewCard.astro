@@ -1,0 +1,30 @@
+---
+import type { MemoryReview } from '../../data/campMemories/types';
+import MemoryFigure from './MemoryFigure.astro';
+
+interface Props {
+	review: MemoryReview;
+}
+
+const { review } = Astro.props;
+---
+
+<article class="memory-review" data-reveal-item>
+	<header class="memory-review__head">
+		<h3 class="memory-review__name">{review.name}</h3>
+		{(review.role || review.course) && (
+			<p class="memory-review__meta">
+				{review.role}
+				{review.role && review.course && ' · '}
+				{review.course && <span class="memory-review__course">{review.course}</span>}
+			</p>
+		)}
+	</header>
+	{review.image && <MemoryFigure image={review.image} />}
+	<div class="memory-review__body">
+		{review.paragraphs.map((paragraph) => (
+			<p>{paragraph}</p>
+		))}
+	</div>
+	{review.note && <p class="memory-review__note">{review.note}</p>}
+</article>

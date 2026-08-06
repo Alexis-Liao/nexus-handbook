@@ -1,0 +1,84 @@
+---
+import type { EssayBlock } from '../../data/campMemories/types';
+import MemoryFigure from './MemoryFigure.astro';
+
+interface Props {
+	blocks: EssayBlock[];
+}
+
+const { blocks } = Astro.props;
+---
+
+<div class="memory-essay prose prose--wide" data-reveal-block>
+	{
+		blocks.map((block) => {
+			if (block.type === 'paragraph') {
+				return <p data-reveal-item>{block.text}</p>;
+			}
+			if (block.type === 'quote') {
+				return (
+					<blockquote data-reveal-item>
+						{block.paragraphs.map((p) => (
+							<p>{p}</p>
+						))}
+						{block.attribution && <cite>{block.attribution}</cite>}
+					</blockquote>
+				);
+			}
+			if (block.type === 'dialogue') {
+				return (
+					<div class="memory-essay__dialogue" data-reveal-item>
+						{block.lines.map((line) => (
+							<p>{line}</p>
+						))}
+					</div>
+				);
+			}
+			if (block.type === 'image') {
+				return (
+					<div data-reveal-item>
+						<MemoryFigure image={block.image} />
+					</div>
+				);
+			}
+			if (block.type === 'divider') {
+				return <hr class="memory-essay__divider" data-reveal-item />;
+			}
+			return null;
+		})
+	}
+</div>
+
+<style>
+	.memory-essay__divider {
+		margin: clamp(2.5rem, 6vw, 3.5rem) 0;
+		border: none;
+		border-top: 1px solid var(--nexus-blue-mist);
+	}
+
+	.memory-essay__dialogue {
+		margin: 1.75rem 0;
+		padding: 1.25rem 1.5rem;
+		border-left: 3px solid var(--nexus-blue-pale);
+		background: color-mix(in srgb, var(--nexus-blue) 4%, transparent);
+	}
+
+	.memory-essay__dialogue p {
+		margin: 0;
+		color: var(--nexus-ink-soft);
+		font-size: 1.02rem;
+		line-height: var(--line-prose);
+	}
+
+	.memory-essay__dialogue p + p {
+		margin-top: 0.85rem;
+	}
+
+	.memory-essay blockquote cite {
+		display: block;
+		margin-top: 1rem;
+		font-size: 0.92rem;
+		font-style: normal;
+		color: #718096;
+	}
+</style>

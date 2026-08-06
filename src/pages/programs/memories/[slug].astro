@@ -1,0 +1,355 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import MemoryFigure from '../../../components/site/MemoryFigure.astro';
+import MemoryReviewCard from '../../../components/site/MemoryReviewCard.astro';
+import MemoryEssayBody from '../../../components/site/MemoryEssayBody.astro';
+import { getAllCampMemorySlugs, getCampMemory } from '../../../data/campMemories';
+
+export function getStaticPaths() {
+	return getAllCampMemorySlugs().map((slug) => ({ params: { slug } }));
+}
+
+const { slug } = Astro.params;
+const article = getCampMemory(slug!);
+
+if (!article) {
+	return Astro.redirect('/programs/');
+}
+
+const isEssay = article.format === 'essay';
+---
+
+<BaseLayout
+	title={`${article.subtitle} · ${article.title}`}
+	description={article.excerpt}
+	currentPath="/programs/"
+>
+	<article class="memory-article">
+		<header class="memory-article__hero">
+			<div class="site-page-inner">
+				<p class="memory-article__eyebrow">
+					<a class="memory-article__back" href="/programs/">← 读书营</a>
+					<span class="memory-article__eyebrow-sep">·</span>
+					<span>营地记忆</span>
+				</p>
+				<h1 class="memory-article__title">{article.subtitle}</h1>
+				<p class="memory-article__subtitle">{article.title}</p>
+				<p class="memory-article__meta">{article.location} · {article.date}</p>
+			</div>
+			{
+				article.coverImage && (
+					<div class="memory-article__cover site-page-inner">
+						<div class="memory-article__cover-frame" data-reveal-image>
+							<img src={article.coverImage} alt={article.subtitle} loading="eager" />
+						</div>
+					</div>
+				)
+			}
+		</header>
+
+		<div class="site-docs">
+			<section class="site-section">
+				<div class="site-page-inner memory-article__body">
+					{
+						article.introTitle && (
+							<div class="prose prose--wide" data-reveal-block>
+								<h2 data-reveal-item>{article.introTitle}</h2>
+								{article.intro.map((paragraph) => (
+									<p data-reveal-item>{paragraph}</p>
+								))}
+							</div>
+						)
+					}
+
+					{
+						article.openingGallery.length > 0 && (
+							<div class="memory-gallery memory-gallery--cols-2" data-reveal-stagger>
+								{article.openingGallery.map((image) => (
+									<MemoryFigure image={image} />
+								))}
+							</div>
+						)
+					}
+
+					{
+						isEssay && article.byline && (
+							<p class="memory-article__byline" data-reveal="fade">{article.byline}</p>
+						)
+					}
+
+					{isEssay && article.essayBlocks && <MemoryEssayBody blocks={article.essayBlocks} />}
+				</div>
+			</section>
+
+			{
+				!isEssay && article.facilitatorReviews.length > 0 && (
+					<section class="site-section site-section--paper">
+						<div class="site-page-inner">
+							<h2 class="memory-section__title" data-reveal-item>领读人回顾</h2>
+							<div class="memory-reviews" data-reveal-stagger>
+								{article.facilitatorReviews.map((review) => (
+									<MemoryReviewCard review={review} />
+								))}
+							</div>
+						</div>
+					</section>
+				)
+			}
+
+			{
+				!isEssay && article.participantReviews.length > 0 && (
+					<section class="site-section">
+						<div class="site-page-inner">
+							<h2 class="memory-section__title" data-reveal-item>共读人回顾</h2>
+							<div class="memory-reviews" data-reveal-stagger>
+								{article.participantReviews.map((review) => (
+									<MemoryReviewCard review={review} />
+								))}
+							</div>
+						</div>
+					</section>
+				)
+			}
+
+			{
+				!isEssay && article.partnerReviews.length > 0 && (
+					<section class="site-section site-section--paper">
+						<div class="site-page-inner">
+							<h2 class="memory-section__title" data-reveal-item>城市合伙人 / 志愿回顾</h2>
+							<div class="memory-reviews" data-reveal-stagger>
+								{article.partnerReviews.map((review) => (
+									<MemoryReviewCard review={review} />
+								))}
+							</div>
+						</div>
+					</section>
+				)
+			}
+
+			{
+				(article.closing.length > 0 || article.closingGallery.length > 0) && (
+					<section class="site-section">
+						<div class="site-page-inner memory-article__body">
+							{article.closing.length > 0 && (
+								<div class="prose prose--wide" data-reveal-block>
+									<h2 data-reveal-item>结语</h2>
+									{article.closing.map((paragraph) => (
+										<p data-reveal-item>{paragraph}</p>
+									))}
+								</div>
+							)}
+
+							{article.closingGallery.length > 0 && (
+								<div class="memory-gallery memory-gallery--cols-3" data-reveal-stagger>
+									{article.closingGallery.map((image) => (
+										<MemoryFigure image={image} />
+									))}
+								</div>
+							)}
+						</div>
+					</section>
+				)
+			}
+
+			{
+				isEssay && article.author && (
+					<section class="site-section site-section--paper">
+						<div class="site-page-inner memory-article__body">
+							<div class="memory-author" data-reveal-block>
+								<h2 class="memory-section__title" data-reveal-item>本文作者</h2>
+								{article.author.image && (
+									<div data-reveal-item>
+										<MemoryFigure image={article.author.image} />
+									</div>
+								)}
+								<div class="memory-author__info" data-reveal-item>
+									<p class="memory-author__name">{article.author.name}</p>
+									{article.author.role && (
+										<p class="memory-author__role">{article.author.role}</p>
+									)}
+									{article.author.course && (
+										<p class="memory-author__course">
+											于知合{article.location}营领读 {article.author.course}
+										</p>
+									)}
+									{article.author.tagline && (
+										<p class="memory-author__tagline">{article.author.tagline}</p>
+									)}
+								</div>
+							</div>
+							<p class="memory-article__credits" data-reveal="fade">{article.credits}</p>
+						</div>
+					</section>
+				)
+			}
+
+			{
+				!isEssay &&
+					(article.extra.length > 0 || article.resources?.length) && (
+						<section class="site-section site-section--paper">
+							<div class="site-page-inner memory-article__body">
+								<div class="prose prose--wide" data-reveal-block>
+									<h2 data-reveal-item>其他</h2>
+									{article.resources?.map((resource) => (
+										<p data-reveal-item>
+											附：营地课程资料，欢迎感兴趣的伙伴取阅、分享。
+											<a href={resource.href} target="_blank" rel="noopener noreferrer">
+												{resource.label}
+											</a>
+											{resource.code && <>（提取码：{resource.code}）</>}
+										</p>
+									))}
+									{article.extra.map((paragraph) => (
+										<p data-reveal-item>{paragraph}</p>
+									))}
+								</div>
+								<p class="memory-article__credits" data-reveal="fade">{article.credits}</p>
+							</div>
+						</section>
+					)
+			}
+
+			{
+				!isEssay &&
+					article.extra.length === 0 &&
+					!article.resources?.length && (
+						<section class="site-section site-section--paper">
+							<div class="site-page-inner memory-article__body">
+								<p class="memory-article__credits" data-reveal="fade">{article.credits}</p>
+							</div>
+						</section>
+					)
+			}
+		</div>
+	</article>
+</BaseLayout>
+
+<style>
+	.memory-article__hero {
+		padding-block: clamp(3rem, 8vw, 5rem) clamp(2rem, 5vw, 3rem);
+		background:
+			radial-gradient(ellipse 55% 45% at 92% 8%, rgba(24, 64, 136, 0.06), transparent 55%),
+			linear-gradient(180deg, #ffffff 0%, var(--nexus-paper) 100%);
+	}
+
+	.memory-article__eyebrow {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.5rem;
+		margin: 0 0 1.25rem;
+		font-size: 0.72rem;
+		font-weight: 700;
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
+		color: var(--nexus-ink-soft);
+	}
+
+	.memory-article__back {
+		color: var(--nexus-blue);
+		text-decoration: none;
+		letter-spacing: 0.12em;
+	}
+
+	.memory-article__back:hover {
+		text-decoration: underline;
+	}
+
+	.memory-article__eyebrow-sep {
+		opacity: 0.45;
+	}
+
+	.memory-article__title {
+		margin: 0;
+		font-family: var(--nexus-font-display);
+		font-size: clamp(1.75rem, 4.5vw, 2.75rem);
+		line-height: 1.25;
+		letter-spacing: 0.05em;
+		color: var(--nexus-blue);
+	}
+
+	.memory-article__subtitle {
+		margin: 0.85rem 0 0;
+		font-family: var(--nexus-font-display);
+		font-size: clamp(1.15rem, 2.5vw, 1.45rem);
+		line-height: 1.5;
+		color: var(--nexus-ink-soft);
+		letter-spacing: 0.04em;
+	}
+
+	.memory-article__meta {
+		margin: 1rem 0 0;
+		font-size: 0.9rem;
+		color: #718096;
+		letter-spacing: 0.06em;
+	}
+
+	.memory-article__cover {
+		margin-top: clamp(2rem, 5vw, 3rem);
+	}
+
+	.memory-article__cover-frame {
+		overflow: hidden;
+		border-radius: 0.5rem;
+		border: 1px solid var(--nexus-blue-mist);
+		aspect-ratio: 16 / 9;
+	}
+
+	.memory-article__cover-frame img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+
+	.memory-article__body {
+		max-width: var(--content-wide);
+	}
+
+	.memory-section__title {
+		margin: 0 0 var(--space-block);
+		font-family: var(--nexus-font-display);
+		font-size: clamp(1.35rem, 3vw, 1.75rem);
+		color: var(--nexus-blue);
+		letter-spacing: 0.05em;
+	}
+
+	.memory-article__credits {
+		margin: clamp(2.5rem, 6vw, 3.5rem) 0 0;
+		padding-top: 1.5rem;
+		border-top: 1px solid var(--nexus-blue-mist);
+		font-size: 0.88rem;
+		color: #718096;
+		letter-spacing: 0.04em;
+	}
+
+	.memory-article__byline {
+		margin: clamp(2rem, 5vw, 2.75rem) 0 0;
+		font-size: 0.92rem;
+		color: #718096;
+		letter-spacing: 0.04em;
+	}
+
+	.memory-author__name {
+		margin: 1.25rem 0 0;
+		font-family: var(--nexus-font-display);
+		font-size: 1.35rem;
+		color: var(--nexus-blue);
+	}
+
+	.memory-author__role,
+	.memory-author__course {
+		margin: 0.45rem 0 0;
+		font-size: 0.95rem;
+		color: var(--nexus-ink-soft);
+		line-height: var(--line-prose);
+	}
+
+	.memory-author__tagline {
+		margin: 1rem 0 0;
+		font-family: var(--nexus-font-display);
+		font-size: 1.05rem;
+		color: var(--nexus-blue);
+		letter-spacing: 0.04em;
+	}
+</style>

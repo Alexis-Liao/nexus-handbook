@@ -1,0 +1,24 @@
+---
+import type { MemoryImage } from '../../data/campMemories/types';
+
+interface Props {
+	image: MemoryImage;
+}
+
+const { image } = Astro.props;
+---
+
+<figure class="memory-figure">
+	{
+		image.src ? (
+			<div class="memory-figure__frame" data-reveal-image>
+				<img src={image.src} alt={image.alt} class="memory-figure__img" loading="lazy" />
+			</div>
+		) : (
+			<div class="memory-figure__placeholder" role="img" aria-label={image.alt}>
+				<span class="memory-figure__placeholder-label">图片</span>
+			</div>
+		)
+	}
+	{image.caption && <figcaption class="memory-figure__caption">{image.caption}</figcaption>}
+</figure>

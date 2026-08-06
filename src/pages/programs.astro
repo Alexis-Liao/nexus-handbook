@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/site/PageHero.astro';
 import SectionHead from '../components/site/SectionHead.astro';
 import { programs, timeline, sampleCourses, campPhotos } from '../data/site';
+import { campMemories } from '../data/campMemories';
 import CampGallery from '../components/site/CampGallery.astro';
 ---
 
@@ -51,6 +52,38 @@ import CampGallery from '../components/site/CampGallery.astro';
 		</section>
 
 		<section class="site-section">
+			<div class="site-page-inner">
+				<SectionHead
+					eyebrow="Memories"
+					title="营地记忆"
+					intro="记录各地读书营中那些难以附着的夏天——领读人、共读人与志愿者留下的文字与回声。"
+				/>
+				<div class="site-card-grid site-card-grid--cols-2" data-reveal-stagger>
+					{
+						campMemories.map((item) => (
+							<a href={`/programs/memories/${item.slug}/`} class="site-card memory-card">
+								<p class="site-card__tag">
+									{item.kind === 'essay' ? '营地手记' : '营地回顾'} · {item.location}
+								</p>
+								<h2 class="site-card__title">{item.title}</h2>
+								<p class="site-card__meta">{item.date}</p>
+								<p class="memory-card__subtitle">{item.subtitle}</p>
+								<p class="site-card__text">{item.excerpt}</p>
+								{
+									item.coverImage && (
+										<div class="memory-card__thumb">
+											<img src={item.coverImage} alt="" loading="lazy" />
+										</div>
+									)
+								}
+							</a>
+						))
+					}
+				</div>
+			</div>
+		</section>
+
+		<section class="site-section site-section--paper">
 			<div class="site-page-inner">
 				<SectionHead eyebrow="Timeline" title="知合营地工作时间线" />
 				<div class="timeline-road" data-reveal="fade">
