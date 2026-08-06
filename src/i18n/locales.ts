@@ -9,6 +9,12 @@ export const localeLabels: Record<Locale, string> = {
 	en: 'English',
 };
 
+/** Compact labels shown in the header language switcher */
+export const localeSwitcherLabels: Record<Locale, { zh: string; en: string }> = {
+	zh: { zh: '中', en: '英' },
+	en: { zh: 'CH', en: 'EN' },
+};
+
 export const localeHtmlLang: Record<Locale, string> = {
 	zh: 'zh-CN',
 	en: 'en',
