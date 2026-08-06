@@ -1,4 +1,10 @@
 <script>
+	function isInViewport(el) {
+		const rect = el.getBoundingClientRect();
+		const viewHeight = window.innerHeight || document.documentElement.clientHeight;
+		return rect.top < viewHeight * 0.92 && rect.bottom > viewHeight * 0.06;
+	}
+
 	function initReveal() {
 		const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 		const targets = document.querySelectorAll('[data-reveal-block], [data-reveal], [data-reveal-stagger]');
@@ -7,7 +13,7 @@
 			if (el.dataset.revealBound === 'true') return;
 			el.dataset.revealBound = 'true';
 
-			if (reduceMotion) {
+			if (reduceMotion || isInViewport(el)) {
 				el.classList.add('is-revealed');
 				return;
 			}
@@ -20,7 +26,7 @@
 						observer.unobserve(entry.target);
 					});
 				},
-				{ threshold: 0.12, rootMargin: '0px 0px -7% 0px' },
+				{ threshold: 0.08, rootMargin: '0px 0px -4% 0px' },
 			);
 
 			observer.observe(el);

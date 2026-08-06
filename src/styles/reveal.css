@@ -1,6 +1,5 @@
 /* Sui 风格滚动进入动效 */
 
-[data-reveal-item],
 [data-reveal-stagger] > *,
 [data-reveal] {
 	opacity: 0;
@@ -17,8 +16,6 @@
 	display: block;
 	overflow: hidden;
 	padding-bottom: 0.06em;
-	transform: translate3d(0, 0, 0);
-	filter: none;
 }
 
 [data-reveal-item] .reveal-line__inner {
@@ -97,7 +94,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-	[data-reveal-item],
 	[data-reveal-item] .reveal-line__inner,
 	[data-reveal-stagger] > *,
 	[data-reveal] {
