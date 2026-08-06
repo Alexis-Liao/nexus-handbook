@@ -428,7 +428,7 @@ a {
 }
 
 .site-section--after-hero {
-	padding-top: clamp(1.25rem, 3vw, 2rem);
+	padding-block: clamp(3.25rem, 8vw, 5rem);
 }
 
 .site-section--after-hero .site-card-grid {
