@@ -71,7 +71,58 @@
 }
 
 .nexus-hero--site .nexus-hero__title {
-	animation: nexus-title-float 8s 1.15s ease-in-out infinite;
+	animation: none;
+}
+
+.nexus-hero--site .nexus-hero__title--highlight {
+	font-family: 'Noto Sans SC', system-ui, sans-serif;
+	font-weight: 900;
+	font-size: clamp(2.5rem, 7.5vw, 4.75rem);
+	line-height: 1.08;
+	letter-spacing: -0.03em;
+	color: var(--hero-ink);
+	gap: 0.12em;
+}
+
+.nexus-hero--site .nexus-hero__title--highlight .nexus-hero__title-line {
+	display: block;
+	overflow: visible;
+}
+
+.hero-tag {
+	display: inline-flex;
+	align-items: stretch;
+	vertical-align: middle;
+	margin-inline: 0.12em 0.08em;
+	transform: translateY(-0.04em);
+}
+
+.hero-tag__icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+	width: clamp(2rem, 4.8vw, 2.85rem);
+	height: clamp(2rem, 4.8vw, 2.85rem);
+	background: var(--hero-blue);
+	color: #fff;
+}
+
+.hero-tag__icon svg {
+	width: 58%;
+	height: 58%;
+}
+
+.hero-tag__text {
+	display: inline-flex;
+	align-items: center;
+	padding-inline: clamp(0.45rem, 1.2vw, 0.75rem);
+	min-height: clamp(2rem, 4.8vw, 2.85rem);
+	background: var(--hero-ink);
+	color: #fff;
+	font-weight: 900;
+	letter-spacing: 0.02em;
+	white-space: nowrap;
 }
 
 .nexus-hero--site .nexus-hero__title-line:nth-child(1) {
@@ -656,9 +707,24 @@
 		padding: clamp(1.5rem, 4vh, 2.5rem) 0;
 	}
 
-	.nexus-hero--site .nexus-hero__title {
-		font-size: clamp(2.35rem, 11vw, 3.15rem);
-		line-height: 1.24;
+	.nexus-hero--site .nexus-hero__title--highlight {
+		font-size: clamp(2rem, 10vw, 2.85rem);
+		line-height: 1.14;
+		letter-spacing: -0.02em;
+	}
+
+	.hero-tag {
+		margin-inline: 0.08em 0.05em;
+	}
+
+	.hero-tag__icon,
+	.hero-tag__text {
+		min-height: clamp(1.85rem, 8vw, 2.35rem);
+	}
+
+	.hero-tag__icon {
+		width: clamp(1.85rem, 8vw, 2.35rem);
+		height: clamp(1.85rem, 8vw, 2.35rem);
 	}
 
 	.nexus-hero--site .nexus-hero__tagline {

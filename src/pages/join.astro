@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/site/PageHero.astro';
 import SectionHead from '../components/site/SectionHead.astro';
 import { advantages, joinPaths, partners } from '../data/site';
+import PartnerLogos from '../components/site/PartnerLogos.astro';
 ---
 
 <BaseLayout
@@ -82,6 +83,7 @@ import { advantages, joinPaths, partners } from '../data/site';
 		<section class="site-section">
 			<div class="site-page-inner">
 				<SectionHead eyebrow="Partners" title="合作案例" intro={partners.note} />
+				<PartnerLogos />
 				<div class="site-card-grid site-card-grid--cols-2">
 					{
 						partners.cases.map((item) => (

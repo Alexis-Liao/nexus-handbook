@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HomeHeroMotto from '../components/HomeHeroMotto.astro';
+import HomeHeroTitle from '../components/HomeHeroTitle.astro';
 import CampGallery from '../components/site/CampGallery.astro';
 import {
 	site,
@@ -36,10 +37,7 @@ import {
 
 		<div class="nexus-hero__inner">
 			<div class="nexus-hero__content">
-				<h1 class="nexus-hero__title">
-					<span class="nexus-hero__title-line">构建文化平原</span>
-					<span class="nexus-hero__title-line">的青年社群</span>
-				</h1>
+				<HomeHeroTitle />
 
 				<div class="nexus-hero__mission-grid">
 					<div class="nexus-hero__mission-item">

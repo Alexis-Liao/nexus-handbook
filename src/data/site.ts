@@ -328,6 +328,7 @@ export const advantages = [
 
 export const partners = {
 	note: '近年来与知合 NEXUS 合作的组织（部分）',
+	logos: '/images/partners/partner-logos.png',
 	cases: [
 		{
 			title: '知合 × 五月 May · 合作读书营',
