@@ -501,6 +501,7 @@ a {
 	border: 1px solid var(--nexus-blue-mist);
 	border-radius: 0.5rem;
 	background: var(--nexus-white);
+	min-width: 0;
 }
 
 .site-section--paper .site-card-grid--cols-3 .site-card,
@@ -1790,13 +1791,6 @@ a {
 	margin-bottom: 1.25rem;
 }
 
-@media (max-width: 768px) {
-	.memory-gallery--cols-2,
-	.memory-gallery--cols-3 {
-		grid-template-columns: 1fr;
-	}
-}
-
 @media (max-width: 720px) {
 	:root {
 		--site-pad: clamp(1.15rem, 4vw, 1.75rem);
@@ -2060,10 +2054,104 @@ a {
 	.camp-photo__caption {
 		padding: 0.9rem 1rem 1rem;
 	}
+
+	.memory-gallery--cols-2,
+	.memory-gallery--cols-3 {
+		grid-template-columns: 1fr;
+		gap: 1.25rem;
+	}
+
+	.memory-card__subtitle {
+		font-size: 0.98rem;
+	}
+
+	.memory-card .site-card__title {
+		overflow-wrap: anywhere;
+		line-height: 1.45;
+	}
+
+	.memory-card__thumb {
+		padding-top: 1rem;
+	}
+
+	.memory-review__name {
+		font-size: 1.12rem;
+	}
+
+	.memory-review__body p {
+		font-size: 1rem;
+	}
+
+	.memory-figure__caption {
+		font-size: 0.84rem;
+		text-align: left;
+	}
+
+	.memory-article .site-section {
+		padding-block: clamp(2.25rem, 6vw, 3.25rem);
+	}
+
+	.memory-article__hero {
+		padding-block: clamp(2rem, 6vw, 3rem) clamp(1.35rem, 4vw, 2rem);
+	}
+
+	.memory-article__title {
+		font-size: clamp(1.55rem, 6.5vw, 2rem);
+		letter-spacing: 0.04em;
+		line-height: 1.3;
+	}
+
+	.memory-article__subtitle {
+		font-size: clamp(1.05rem, 4vw, 1.25rem);
+		line-height: 1.55;
+	}
+
+	.memory-article__eyebrow {
+		font-size: 0.68rem;
+		gap: 0.35rem 0.5rem;
+	}
+
+	.memory-article__cover {
+		margin-top: clamp(1.35rem, 4vw, 2rem);
+	}
+
+	.memory-section__title {
+		font-size: clamp(1.2rem, 4.5vw, 1.45rem);
+		margin-bottom: clamp(1.25rem, 4vw, 1.75rem);
+	}
+
+	.memory-article__byline,
+	.memory-article__credits {
+		font-size: 0.84rem;
+	}
+
+	.memory-author__name {
+		font-size: 1.2rem;
+	}
+
+	.memory-author .memory-figure {
+		max-width: 10rem;
+	}
+
+	.memory-essay.prose h2 {
+		margin-top: 2.25rem;
+		font-size: 1.25rem;
+	}
+
+	.memory-essay.prose blockquote {
+		margin: 1.35rem 0;
+		padding: 1rem 1.05rem;
+	}
+
+	.memory-essay.prose p,
+	.memory-essay.prose li {
+		font-size: 1rem;
+	}
 }
 
 @media (hover: none) {
 	.site-card-grid .site-card:hover,
+	.memory-card:hover,
 	.card:hover,
 	.location-tag:hover,
 	.nexus-hero__cta:hover,

@@ -776,6 +776,10 @@
 		animation: none !important;
 	}
 
+	.nexus-hero--site .nexus-hero__canvas--motto {
+		display: none;
+	}
+
 	.nexus-hero__footer {
 		grid-template-columns: 1fr;
 		gap: 0.5rem;
@@ -813,12 +817,6 @@
 	.nexus-hero--site .nexus-hero__cta {
 		padding: 1.1rem 1.35rem;
 		min-height: 3.25rem;
-	}
-
-	.nexus-hero--site .nexus-hero__motto-col {
-		animation: none;
-		opacity: 0.75;
-		color: rgba(24, 64, 136, 0.14);
 	}
 
 	.nexus-hero--site .nexus-hero__title {

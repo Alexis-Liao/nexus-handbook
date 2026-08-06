@@ -110,6 +110,8 @@ function initStatCount() {
 }
 
 function initParallax() {
+	if (window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
+
 	document.querySelectorAll('[data-parallax]').forEach((el) => {
 		const ratio = parseFloat(el.getAttribute('data-parallax') ?? '0.2');
 		gsap.to(el, {
@@ -136,6 +138,24 @@ function initNavScroll() {
 	});
 }
 
+function initRevealFallback() {
+	window.setTimeout(() => {
+		document
+			.querySelectorAll<HTMLElement>('[data-reveal-item], [data-reveal-stagger] > *, [data-reveal]')
+			.forEach((el) => {
+				if (parseFloat(getComputedStyle(el).opacity) < 0.1) {
+					gsap.set(el, { opacity: 1, y: 0, clearProps: 'transform' });
+				}
+			});
+
+		document.querySelectorAll('[data-reveal-image]').forEach((wrap) => {
+			const img = wrap.querySelector('img');
+			gsap.set(wrap, { clipPath: 'none' });
+			if (img) gsap.set(img, { opacity: 1, scale: 1 });
+		});
+	}, 2500);
+}
+
 export function initMotion() {
 	killMotion();
 
@@ -155,5 +175,6 @@ export function initMotion() {
 	initStatCount();
 	initParallax();
 	initNavScroll();
+	initRevealFallback();
 	ScrollTrigger.refresh();
 }
