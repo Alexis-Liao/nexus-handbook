@@ -29,7 +29,7 @@ const t = getUi(locale);
 		<section class="site-section">
 			<div class="site-page-inner">
 				<SectionHead eyebrow={t.team.leadershipEyebrow} title={t.team.leadershipTitle} />
-				<div class="site-card-grid site-card-grid--cols-2">
+				<div class="site-card-grid site-card-grid--cols-2" data-reveal-stagger>
 					{
 						leadership.map((person) => (
 							<TeamMemberCard
@@ -52,7 +52,7 @@ const t = getUi(locale);
 					teamGroups.map((group) => (
 						<div class="team-group">
 							<h2 class="team-group__title">{group.name}</h2>
-							<div class="site-card-grid site-card-grid--cols-3">
+							<div class="site-card-grid site-card-grid--cols-3" data-reveal-stagger>
 								{group.members.map((member) => (
 									<TeamMemberCard
 										name={member.name}

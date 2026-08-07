@@ -29,7 +29,7 @@ const t = getUi(locale);
 			<div class="site-page-inner">
 				<SectionHead eyebrow={t.philosophy.liberalEyebrow} title={t.philosophy.liberalTitle} intro={liberalEducation.intro} />
 
-				<div class="site-card-grid site-card-grid--cols-3">
+				<div class="site-card-grid site-card-grid--cols-3" data-reveal-stagger>
 					{
 						liberalEducation.pillars.map((item) => (
 							<article class="site-card">
@@ -46,7 +46,7 @@ const t = getUi(locale);
 			<div class="site-page-inner">
 				<SectionHead eyebrow={t.philosophy.roundtableEyebrow} title={t.philosophy.roundtableTitle} intro={roundtable.philosophy} />
 
-				<div class="site-card-grid site-card-grid--cols-2">
+				<div class="site-card-grid site-card-grid--cols-2" data-reveal-stagger>
 					{
 						roundtable.features.map((item) => (
 							<article class="site-card">
@@ -56,7 +56,7 @@ const t = getUi(locale);
 					}
 				</div>
 
-				<p class="site-section__intro site-section__intro--spaced">{roundtable.practice}</p>
+				<p class="site-section__intro site-section__intro--spaced" data-reveal="fade">{roundtable.practice}</p>
 			</div>
 		</section>
 	</div>

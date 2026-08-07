@@ -12,7 +12,7 @@ const { image, placeholder = '图片' } = Astro.props;
 <figure class="memory-figure">
 	{
 		image.src ? (
-			<div class="memory-figure__frame" data-reveal-image>
+			<div class="memory-figure__frame">
 				<img src={image.src} alt={image.alt} class="memory-figure__img" loading="lazy" />
 			</div>
 		) : (

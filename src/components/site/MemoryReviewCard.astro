@@ -10,7 +10,7 @@ interface Props {
 const { review, placeholder } = Astro.props;
 ---
 
-<article class="memory-review" data-reveal-item>
+<article class="memory-review">
 	<header class="memory-review__head">
 		<h3 class="memory-review__name">{review.name}</h3>
 		{(review.role || review.course) && (

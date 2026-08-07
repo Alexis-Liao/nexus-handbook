@@ -87,7 +87,9 @@ const facilitatorLine = t.memory.facilitatorAt.replace('{location}', article.loc
 				!isEssay && article.facilitatorReviews.length > 0 && (
 					<section class="site-section site-section--paper">
 						<div class="site-page-inner">
-							<h2 class="memory-section__title" data-reveal-item>{t.memory.facilitatorReviews}</h2>
+							<div data-reveal-block>
+								<h2 class="memory-section__title" data-reveal-item>{t.memory.facilitatorReviews}</h2>
+							</div>
 							<div class="memory-reviews" data-reveal-stagger>
 								{article.facilitatorReviews.map((review) => (
 									<MemoryReviewCard review={review} placeholder={t.memory.imagePlaceholder} />
@@ -102,7 +104,9 @@ const facilitatorLine = t.memory.facilitatorAt.replace('{location}', article.loc
 				!isEssay && article.participantReviews.length > 0 && (
 					<section class="site-section">
 						<div class="site-page-inner">
-							<h2 class="memory-section__title" data-reveal-item>{t.memory.participantReviews}</h2>
+							<div data-reveal-block>
+								<h2 class="memory-section__title" data-reveal-item>{t.memory.participantReviews}</h2>
+							</div>
 							<div class="memory-reviews" data-reveal-stagger>
 								{article.participantReviews.map((review) => (
 									<MemoryReviewCard review={review} placeholder={t.memory.imagePlaceholder} />
@@ -117,7 +121,9 @@ const facilitatorLine = t.memory.facilitatorAt.replace('{location}', article.loc
 				!isEssay && article.partnerReviews.length > 0 && (
 					<section class="site-section site-section--paper">
 						<div class="site-page-inner">
-							<h2 class="memory-section__title" data-reveal-item>{t.memory.partnerReviews}</h2>
+							<div data-reveal-block>
+								<h2 class="memory-section__title" data-reveal-item>{t.memory.partnerReviews}</h2>
+							</div>
 							<div class="memory-reviews" data-reveal-stagger>
 								{article.partnerReviews.map((review) => (
 									<MemoryReviewCard review={review} placeholder={t.memory.imagePlaceholder} />

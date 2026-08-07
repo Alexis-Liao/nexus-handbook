@@ -31,7 +31,7 @@ const { application, roles, process, sampleSyllabi, wechatArticle, assistantNote
 	<div class="site-docs">
 		<section class="site-section">
 			<div class="site-page-inner site-page-inner--wide">
-				<div class="recruit-banner">
+				<div class="recruit-banner" data-reveal="fade">
 					<p class="recruit-banner__text">
 						{t.facilitator.deadlinePrefix}<strong>{application.deadline}</strong>
 					</p>
@@ -55,7 +55,7 @@ const { application, roles, process, sampleSyllabi, wechatArticle, assistantNote
 		<section class="site-section site-section--paper">
 			<div class="site-page-inner">
 				<SectionHead eyebrow="01" title={t.facilitator.section01} />
-				<div class="site-card recruit-info">
+				<div class="site-card recruit-info" data-reveal="fade">
 					<dl class="recruit-info__list">
 						<div class="recruit-info__row">
 							<dt>{t.facilitator.campInfo}</dt>
@@ -104,8 +104,8 @@ const { application, roles, process, sampleSyllabi, wechatArticle, assistantNote
 		<section class="site-section">
 			<div class="site-page-inner">
 				<SectionHead eyebrow="02" title={t.facilitator.section02} intro={t.facilitator.section02Intro} />
-				<p class="recruit-lede">{t.facilitator.section02Lede}</p>
-				<div class="site-card-grid site-card-grid--cols-3">
+				<p class="recruit-lede" data-reveal="fade">{t.facilitator.section02Lede}</p>
+				<div class="site-card-grid site-card-grid--cols-3" data-reveal-stagger>
 					{
 						roles.map((role) => (
 							<article class="site-card">
@@ -135,7 +135,7 @@ const { application, roles, process, sampleSyllabi, wechatArticle, assistantNote
 		<section class="site-section">
 			<div class="site-page-inner">
 				<SectionHead eyebrow="04" title={t.facilitator.section04} />
-				<div class="recruit-process">
+				<div class="recruit-process" data-reveal-stagger>
 					{
 						process.map((item, index) => (
 							<article class="site-card recruit-process__item">
@@ -158,33 +158,35 @@ const { application, roles, process, sampleSyllabi, wechatArticle, assistantNote
 					}
 				</div>
 
-				<div class="site-card recruit-resource">
-					<h3 class="site-card__title">{sampleSyllabi.label}</h3>
-					<p class="site-card__text">
-						<a href={sampleSyllabi.href} target="_blank" rel="noopener noreferrer">
-							{t.facilitator.baiduDownload}
-						</a>
-						· {t.facilitator.passwordPrefix}{sampleSyllabi.password}
-					</p>
-				</div>
-
-				<div class="site-card recruit-resource">
-					<h3 class="site-card__title">{t.facilitator.consultTitle}</h3>
-					<p class="site-card__text">{assistantNote}</p>
-				</div>
-
-				<div class="dual-panel recruit-mission">
-					<div class="dual-panel__item">
-						<p class="dual-panel__label">{t.facilitator.mission}</p>
-						<p>{site.description}</p>
+				<div data-reveal-stagger>
+					<div class="site-card recruit-resource">
+						<h3 class="site-card__title">{sampleSyllabi.label}</h3>
+						<p class="site-card__text">
+							<a href={sampleSyllabi.href} target="_blank" rel="noopener noreferrer">
+								{t.facilitator.baiduDownload}
+							</a>
+							· {t.facilitator.passwordPrefix}{sampleSyllabi.password}
+						</p>
 					</div>
-					<div class="dual-panel__item">
-						<p class="dual-panel__label">{t.facilitator.vision}</p>
-						<p>{site.vision}</p>
+
+					<div class="site-card recruit-resource">
+						<h3 class="site-card__title">{t.facilitator.consultTitle}</h3>
+						<p class="site-card__text">{assistantNote}</p>
+					</div>
+
+					<div class="dual-panel recruit-mission">
+						<div class="dual-panel__item">
+							<p class="dual-panel__label">{t.facilitator.mission}</p>
+							<p>{site.description}</p>
+						</div>
+						<div class="dual-panel__item">
+							<p class="dual-panel__label">{t.facilitator.vision}</p>
+							<p>{site.vision}</p>
+						</div>
 					</div>
 				</div>
 
-				<div class="nexus-hero__actions site-section__actions">
+				<div class="nexus-hero__actions site-section__actions" data-reveal="fade">
 					<a
 						class="nexus-hero__cta"
 						href={wechatArticle.href}

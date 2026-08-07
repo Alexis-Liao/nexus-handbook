@@ -27,7 +27,7 @@ const t = getUi(locale);
 	<div class="site-docs">
 		<section class="site-section site-section--after-hero">
 			<div class="site-page-inner">
-				<div class="site-card-grid site-card-grid--cols-2">
+				<div class="site-card-grid site-card-grid--cols-2" data-reveal-stagger>
 					<article class="site-card">
 						<h2 class="site-card__title">{t.about.mission}</h2>
 						<p class="site-card__text">{site.description}</p>
@@ -46,10 +46,10 @@ const t = getUi(locale);
 					<p class="site-section__eyebrow">Cultural Plain</p>
 					<h2 class="site-section__title">{culturalPlain.title}</h2>
 				</div>
-				<div class="prose">
-					<p>{culturalPlain.definition}</p>
-					<p>{culturalPlain.context}</p>
-					<p>{culturalPlain.scope}</p>
+				<div class="prose" data-reveal-block>
+					<p data-reveal-item>{culturalPlain.definition}</p>
+					<p data-reveal-item>{culturalPlain.context}</p>
+					<p data-reveal-item>{culturalPlain.scope}</p>
 				</div>
 			</div>
 		</section>
@@ -57,7 +57,7 @@ const t = getUi(locale);
 		<section class="site-section">
 			<div class="site-page-inner">
 				<SectionHead eyebrow={t.about.locationsEyebrow} title={t.about.locationsTitle} intro={t.about.locationsIntro} />
-				<div class="location-tags">
+				<div class="location-tags" data-reveal-stagger>
 					{campLocations.map((city) => <span class="location-tag">{city}</span>)}
 				</div>
 			</div>
@@ -66,7 +66,7 @@ const t = getUi(locale);
 		<section class="site-section site-section--paper">
 			<div class="site-page-inner">
 				<SectionHead eyebrow={t.about.feedbackEyebrow} title={t.about.feedbackTitle} />
-				<div class="quote-grid">
+				<div class="quote-grid" data-reveal-stagger>
 					{
 						testimonials.map((item) => (
 							<blockquote class="quote-card">

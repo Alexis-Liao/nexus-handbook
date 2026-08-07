@@ -54,9 +54,7 @@ const t = getUi(locale);
 		<section class="site-section site-section--paper">
 			<div class="site-page-inner">
 				<SectionHead eyebrow={t.programs.campLifeEyebrow} title={t.programs.campLifeTitle} intro={t.programs.campLifeIntro} />
-				<div data-reveal="fade">
-					<CampGallery photos={campPhotos} />
-				</div>
+				<CampGallery photos={campPhotos} />
 			</div>
 		</section>
 
@@ -91,7 +89,7 @@ const t = getUi(locale);
 		<section class="site-section site-section--paper">
 			<div class="site-page-inner">
 				<SectionHead eyebrow={t.programs.timelineEyebrow} title={t.programs.timelineTitle} />
-				<div class="timeline-road" data-reveal="fade">
+				<div class="timeline-road">
 					<svg class="timeline-road__svg" viewBox="0 0 120 720" preserveAspectRatio="none" aria-hidden="true">
 						<path
 							class="timeline-road__track"
@@ -102,7 +100,7 @@ const t = getUi(locale);
 							d="M 60 16 C 60 56, 104 72, 104 128 C 104 184, 16 200, 16 256 C 16 312, 104 328, 104 384 C 104 440, 16 456, 16 512 C 16 568, 104 584, 104 640 C 104 680, 60 696, 60 704"
 						></path>
 					</svg>
-					<ol class="timeline timeline--road">
+					<ol class="timeline timeline--road" data-reveal-stagger>
 						{
 							timeline.map((item) => (
 								<li class="timeline__item">

@@ -7,15 +7,19 @@ const EASE = 'power2.out';
 const REVEAL = { y: 32, duration: 0.8, ease: EASE };
 const STAGGER = 0.1;
 
+const REVEAL_TARGETS =
+	'[data-reveal-item], [data-reveal-stagger] > *, [data-reveal], [data-reveal-image], [data-reveal-image] img';
+
 function prefersReducedMotion() {
 	return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
 
-function revealTrigger(trigger: Element, start = 'top 80%') {
+function revealTrigger(trigger: Element, start = 'top 85%') {
 	return {
 		trigger,
 		start,
 		once: true,
+		invalidateOnRefresh: true,
 	};
 }
 
@@ -23,16 +27,39 @@ function setVisible(selectors: string) {
 	gsap.set(selectors, { opacity: 1, y: 0, scale: 1, clipPath: 'none', clearProps: 'transform,filter' });
 }
 
+let fallbackTimer: ReturnType<typeof setTimeout> | undefined;
+
 function killMotion() {
-	ScrollTrigger.getAll().forEach((t) => t.kill());
+	if (fallbackTimer) {
+		window.clearTimeout(fallbackTimer);
+		fallbackTimer = undefined;
+	}
+
+	ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+	gsap.killTweensOf(REVEAL_TARGETS);
+}
+
+function primeRevealTargets() {
+	document.querySelectorAll<HTMLElement>('[data-reveal-item], [data-reveal]').forEach((el) => {
+		gsap.set(el, { opacity: 0, y: REVEAL.y });
+	});
+
+	document.querySelectorAll<HTMLElement>('[data-reveal-stagger]').forEach((group) => {
+		gsap.set(group.children, { opacity: 0, y: REVEAL.y });
+	});
+
+	document.querySelectorAll<HTMLElement>('[data-reveal-image]').forEach((wrap) => {
+		const img = wrap.querySelector('img');
+		gsap.set(wrap, { clipPath: 'inset(0 0 100% 0)' });
+		if (img) gsap.set(img, { scale: 1.05, opacity: 0 });
+	});
 }
 
 function initScrollReveal() {
 	document.querySelectorAll('[data-reveal-block]').forEach((block) => {
-		const items = block.querySelectorAll('[data-reveal-item]');
+		const items = block.querySelectorAll(':scope > [data-reveal-item]');
 		if (!items.length) return;
 
-		gsap.set(items, { opacity: 0, y: REVEAL.y });
 		gsap.to(items, {
 			opacity: 1,
 			y: 0,
@@ -47,7 +74,6 @@ function initScrollReveal() {
 		const children = group.children;
 		if (!children.length) return;
 
-		gsap.set(children, { opacity: 0, y: REVEAL.y });
 		gsap.to(children, {
 			opacity: 1,
 			y: 0,
@@ -59,7 +85,6 @@ function initScrollReveal() {
 	});
 
 	document.querySelectorAll('[data-reveal]').forEach((el) => {
-		gsap.set(el, { opacity: 0, y: REVEAL.y });
 		gsap.to(el, {
 			opacity: 1,
 			y: 0,
@@ -71,14 +96,11 @@ function initScrollReveal() {
 }
 
 function initImageReveal() {
-	document.querySelectorAll('[data-reveal-image]').forEach((wrap, index) => {
+	document.querySelectorAll('[data-reveal-image]').forEach((wrap) => {
 		const img = wrap.querySelector('img');
-		gsap.set(wrap, { clipPath: 'inset(0 0 100% 0)' });
-		if (img) gsap.set(img, { scale: 1.05, opacity: 0 });
 
 		const tl = gsap.timeline({
 			scrollTrigger: revealTrigger(wrap),
-			delay: index * 0.12,
 		});
 
 		tl.to(wrap, { clipPath: 'inset(0 0 0% 0)', duration: 1, ease: EASE }, 0);
@@ -100,7 +122,7 @@ function initStatCount() {
 			value: target,
 			duration: 1.5,
 			ease: 'power1.out',
-			scrollTrigger: revealTrigger(el, 'top 85%'),
+			scrollTrigger: revealTrigger(el, 'top 88%'),
 			onUpdate: () => {
 				const rounded = Math.round(counter.value);
 				el.textContent = `${prefix}${rounded}${suffix}`;
@@ -138,8 +160,15 @@ function initNavScroll() {
 	});
 }
 
+function refreshScrollTriggers() {
+	ScrollTrigger.refresh();
+	requestAnimationFrame(() => {
+		ScrollTrigger.refresh();
+	});
+}
+
 function initRevealFallback() {
-	window.setTimeout(() => {
+	fallbackTimer = window.setTimeout(() => {
 		document
 			.querySelectorAll<HTMLElement>('[data-reveal-item], [data-reveal-stagger] > *, [data-reveal]')
 			.forEach((el) => {
@@ -164,17 +193,16 @@ export function initMotion() {
 	document.documentElement.classList.add('motion-ready');
 
 	if (reduced) {
-		setVisible(
-			'[data-reveal-item], [data-reveal-stagger] > *, [data-reveal], [data-reveal-image], [data-reveal-image] img',
-		);
+		setVisible(REVEAL_TARGETS);
 		return;
 	}
 
+	primeRevealTargets();
 	initScrollReveal();
 	initImageReveal();
 	initStatCount();
 	initParallax();
 	initNavScroll();
 	initRevealFallback();
-	ScrollTrigger.refresh();
+	refreshScrollTriggers();
 }
